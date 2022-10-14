@@ -3,14 +3,14 @@ package Model;
 public class Shot {
 	private int id;
 	private int strength;
-	private int quadrantNumber;
+	private Quadrant quadrant;
 	private int px, py;
 
-	public Shot(int id, int strength, int quadrant, int px, int py) {
+	public Shot(int id, int strength, Quadrant quadrant, int px, int py) {
 		super();
 		this.id = id;
 		this.strength = strength;
-		this.quadrantNumber = quadrant;
+		this.quadrant = quadrant;
 		this.px = px;
 		this.py = py;
 	}
@@ -19,8 +19,8 @@ public class Shot {
 		return id;
 	}
 
-	public int getQuadrant() {
-		return quadrantNumber;
+	public Quadrant getQuadrant() {
+		return quadrant;
 	}
 
 	public int getPx() {
@@ -29,6 +29,10 @@ public class Shot {
 
 	public int getPy() {
 		return py;
+	}
+	
+	public int getStrength() {
+		return strength;
 	}
 
 }

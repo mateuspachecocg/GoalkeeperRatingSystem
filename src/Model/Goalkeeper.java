@@ -12,7 +12,6 @@ public class Goalkeeper {
 
 	public Goalkeeper(int id, String name, int speed, int flexibility, int agility, int coordination, int strength,
 			int balance) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.speed = speed;
@@ -35,4 +34,17 @@ public class Goalkeeper {
 		}
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public int getStrength() {
+		return strength;
+	}
+
+	
 }

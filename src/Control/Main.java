@@ -6,25 +6,24 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class Main {
-	
-	
-	Quadrant firstQuadrant = new Quadrant(1, new Pixel(0,0), new Pixel (4,8));
-	Quadrant secondQuadrant = new Quadrant(2, new Pixel(0,9), new Pixel (4,17));
-	Quadrant thirdQuadrant = new Quadrant(3, new Pixel(5,0), new Pixel (7,8));
-	Quadrant fourQuadrant = new Quadrant(4, new Pixel(5,9), new Pixel (7,17));
-	
+
+	public static Quadrant firstQuadrant = new Quadrant(1, new Pixel(0, 0), new Pixel(4, 8));
+	public static Quadrant secondQuadrant = new Quadrant(2, new Pixel(0, 9), new Pixel(4, 17));
+	public static Quadrant thirdQuadrant = new Quadrant(3, new Pixel(5, 0), new Pixel(7, 8));
+	public static Quadrant forthQuadrant = new Quadrant(4, new Pixel(5, 9), new Pixel(7, 17));
+
 	public static void main(String[] args) {
 		ArrayList<Shot> bd_shots = loadShots();
 		ArrayList<Goalkeeper> bd_goalkeepers = loadGoalkeepers();
-		
-		
+
 	}
 
 	public static ArrayList<Shot> loadShots() {
-		int amountShot, shotId, shotStrength, shotQuadrant, shotPx, shotPy;
+		int amountShot, shotId, shotStrength, numberOfQuadrant, shotPx, shotPy;
 		ArrayList<Shot> shots = new ArrayList<Shot>();
 		File fileObject;
 		Scanner fileReader;
+		Quadrant shotQuadrant;
 
 		try {
 			fileObject = new File("bd_shots.txt");
@@ -34,9 +33,26 @@ public class Main {
 			for (int i = 0; i < amountShot; i++) {
 				shotId = fileReader.nextInt();
 				shotStrength = fileReader.nextInt();
-				shotQuadrant = fileReader.nextInt();
+				numberOfQuadrant = fileReader.nextInt();
 				shotPx = fileReader.nextInt();
 				shotPy = fileReader.nextInt();
+				switch (numberOfQuadrant) {
+				case 1:
+					shotQuadrant = firstQuadrant;
+					break;
+				case 2:
+					shotQuadrant = secondQuadrant;
+					break;
+				case 3:
+					shotQuadrant = thirdQuadrant;
+					break;
+				case 4:
+					shotQuadrant = forthQuadrant;
+					break;
+				default:
+					shotQuadrant = null;
+				}
+
 				shots.add(new Shot(shotId, shotStrength, shotQuadrant, shotPx, shotPy));
 			}
 
@@ -84,5 +100,4 @@ public class Main {
 
 	}
 
-	
 }
