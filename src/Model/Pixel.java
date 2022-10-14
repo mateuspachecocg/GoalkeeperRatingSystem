@@ -4,6 +4,10 @@ public class Pixel {
 	private int px;
 	private int py;
 	
+	public Pixel() {
+		super();
+	}
+	
 	public Pixel(int px, int py) {
 		super();
 		this.px = px;

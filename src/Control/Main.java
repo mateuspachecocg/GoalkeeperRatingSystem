@@ -13,10 +13,39 @@ public class Main {
 	public static Quadrant forthQuadrant = new Quadrant(4, new Pixel(5, 9), new Pixel(7, 17));
 	public static ArrayList<Shot> bd_shots;
 	public static ArrayList<Goalkeeper> bd_goalkeepers;
+	
+	
 	public static void main(String[] args) {
 		 loadShots();
 		 loadGoalkeepers();
-
+		 
+		 Goalpost goalpost = new Goalpost(new Pixel(7,1),new Pixel(1,1),new Pixel(1,16), new Pixel(7,16));
+		 
+		 // Loading Goalkeepers to Teams.
+		 Team brazil = new Team(1, "Brazil", new ArrayList<Goalkeeper>(bd_goalkeepers.subList(0, 4)));
+		 Team belgium = new Team(2, "Belgium", new ArrayList<Goalkeeper>(bd_goalkeepers.subList(5, 9)));
+		 Team argentina = new Team(3, "Argentina", new ArrayList<Goalkeeper>(bd_goalkeepers.subList(10, 14)));
+		 Team france = new Team(4, "France", new ArrayList<Goalkeeper>(bd_goalkeepers.subList(15, 19)));
+		 Team italy = new Team(5, "Italy", new ArrayList<Goalkeeper>(bd_goalkeepers.subList(20, 24)));
+		 Team spain = new Team(6, "Spain", new ArrayList<Goalkeeper>(bd_goalkeepers.subList(25, 26)));
+		 ArrayList<Team> bd_team = new ArrayList<Team>();
+		 bd_team.add(brazil);
+		 bd_team.add(belgium);
+		 bd_team.add(argentina);
+		 bd_team.add(france);
+		 bd_team.add(italy);
+		 bd_team.add(spain);
+		 
+		 // Instance a Goalkeeper Coach
+		 Coach coach = new Coach();
+		 
+		 for(Team team: bd_team) {
+			 for(Goalkeeper goalkeeper: team.getGoalkeepers()) {
+				 
+			 }
+		 }
+		 
+		 
 	}
 
 	public static void loadShots() {
