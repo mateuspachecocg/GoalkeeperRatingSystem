@@ -1,0 +1,183 @@
+26
+1 Pratik Skaggs
+ 5
+ 7
+ 8
+ 9
+ 6
+ 6
+2 Uehudah Hack
+ 9
+ 6
+ 8
+ 8
+ 7
+ 10
+3 Edison Drye
+ 5
+ 8
+ 5
+ 8
+ 10
+ 7
+4 Ajani Harding
+ 6
+ 6
+ 5
+ 8
+ 7
+ 6
+5 Orazio Hart
+ 5
+ 8
+ 7
+ 9
+ 9
+ 10
+6 Tristan Karns
+ 9
+ 7
+ 10
+ 7
+ 7
+ 6
+7 Niven Glaser
+ 10
+ 9
+ 7
+ 6
+ 5
+ 8
+8 Derwyn Devers
+ 10
+ 7
+ 9
+ 5
+ 9
+ 5
+9 Tod Phan
+ 10
+ 7
+ 7
+ 5
+ 5
+ 6
+10 Eddie Hulse
+ 7
+ 6
+ 5
+ 9
+ 7
+ 5
+11 Welford Yepez
+ 5
+ 8
+ 8
+ 7
+ 7
+ 8
+12 Rishley Snyder
+ 6
+ 5
+ 6
+ 5
+ 7
+ 6
+13 Milo Mccurdy
+ 10
+ 9
+ 8
+ 6
+ 10
+ 9
+14 Carden Justus
+ 8
+ 5
+ 8
+ 5
+ 10
+ 7
+15 Carlyon Gorby
+ 8
+ 5
+ 8
+ 8
+ 8
+ 6
+16 Mungo Spangler
+ 8
+ 10
+ 9
+ 8
+ 9
+ 5
+17 Whitmore Squires
+ 9
+ 10
+ 7
+ 9
+ 9
+ 10
+18 Pedrog Mccurdy
+ 8
+ 5
+ 10
+ 5
+ 7
+ 7
+19 Ridgley Leo
+ 8
+ 8
+ 8
+ 9
+ 9
+ 9
+20 Bolton Tarin
+ 9
+ 8
+ 7
+ 6
+ 9
+ 10
+21 Edison Loy
+ 7
+ 7
+ 5
+ 10
+ 10
+ 7
+22 Delling Herndon
+ 7
+ 5
+ 5
+ 8
+ 9
+ 9
+23 Senichi Iorio
+ 7
+ 7
+ 5
+ 8
+ 10
+ 5
+24 Albin Kerner
+ 6
+ 7
+ 8
+ 8
+ 9
+ 9
+25 Jivin Justus
+ 9
+ 10
+ 8
+ 7
+ 7
+ 5
+26 Clement Fleisher
+ 10
+ 9
+ 10
+ 5
+ 7
+ 8
