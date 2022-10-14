@@ -11,19 +11,20 @@ public class Main {
 	public static Quadrant secondQuadrant = new Quadrant(2, new Pixel(0, 9), new Pixel(4, 17));
 	public static Quadrant thirdQuadrant = new Quadrant(3, new Pixel(5, 0), new Pixel(7, 8));
 	public static Quadrant forthQuadrant = new Quadrant(4, new Pixel(5, 9), new Pixel(7, 17));
-
+	public static ArrayList<Shot> bd_shots;
+	public static ArrayList<Goalkeeper> bd_goalkeepers;
 	public static void main(String[] args) {
-		ArrayList<Shot> bd_shots = loadShots();
-		ArrayList<Goalkeeper> bd_goalkeepers = loadGoalkeepers();
+		 loadShots();
+		 loadGoalkeepers();
 
 	}
 
-	public static ArrayList<Shot> loadShots() {
+	public static void loadShots() {
 		int amountShot, shotId, shotStrength, numberOfQuadrant, shotPx, shotPy;
-		ArrayList<Shot> shots = new ArrayList<Shot>();
 		File fileObject;
 		Scanner fileReader;
 		Quadrant shotQuadrant;
+		bd_shots = new ArrayList<Shot>();
 
 		try {
 			fileObject = new File("bd_shots.txt");
@@ -53,7 +54,7 @@ public class Main {
 					shotQuadrant = null;
 				}
 
-				shots.add(new Shot(shotId, shotStrength, shotQuadrant, shotPx, shotPy));
+				bd_shots.add(new Shot(shotId, shotStrength, shotQuadrant, shotPx, shotPy));
 			}
 
 			fileReader.close();
@@ -61,17 +62,16 @@ public class Main {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
 		}
-		return shots;
+
 	}
 
-	public static ArrayList<Goalkeeper> loadGoalkeepers() {
+	public static void loadGoalkeepers() {
 		int amountGoalpeekers, goalpeekerId, goalkeeperSpeed, goalkeeperFlexibility, goalkeeperAgility,
 				goalkeeperCoordination, goalkeeperStrength, goalkeeperBalance;
 		String goalkeeperName;
-		ArrayList<Goalkeeper> goalkeepers = new ArrayList<Goalkeeper>();
 		File fileObject;
 		Scanner fileReader;
-
+		bd_goalkeepers = new ArrayList<Goalkeeper>();
 		try {
 			fileObject = new File("bd_goalpeekers.txt");
 			fileReader = new Scanner(fileObject);
@@ -86,7 +86,7 @@ public class Main {
 				goalkeeperCoordination = fileReader.nextInt();
 				goalkeeperStrength = fileReader.nextInt();
 				goalkeeperBalance = fileReader.nextInt();
-				goalkeepers.add(new Goalkeeper(goalpeekerId, goalkeeperName, goalkeeperSpeed, goalkeeperFlexibility,
+				bd_goalkeepers.add(new Goalkeeper(goalpeekerId, goalkeeperName, goalkeeperSpeed, goalkeeperFlexibility,
 						goalkeeperAgility, goalkeeperCoordination, goalkeeperStrength, goalkeeperBalance));
 			}
 
@@ -96,7 +96,6 @@ public class Main {
 			e.printStackTrace();
 		}
 
-		return goalkeepers;
 
 	}
 
