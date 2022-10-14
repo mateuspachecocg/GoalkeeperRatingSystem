@@ -6,11 +6,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class Main {
-
+	
+	
+	Quadrant firstQuadrant = new Quadrant(1, new Pixel(0,0), new Pixel (4,8));
+	Quadrant secondQuadrant = new Quadrant(2, new Pixel(0,9), new Pixel (4,17));
+	Quadrant thirdQuadrant = new Quadrant(3, new Pixel(5,0), new Pixel (7,8));
+	Quadrant fourQuadrant = new Quadrant(4, new Pixel(5,9), new Pixel (7,17));
+	
 	public static void main(String[] args) {
 		ArrayList<Shot> bd_shots = loadShots();
 		ArrayList<Goalkeeper> bd_goalkeepers = loadGoalkeepers();
-
+		
+		
 	}
 
 	public static ArrayList<Shot> loadShots() {
@@ -77,4 +84,5 @@ public class Main {
 
 	}
 
+	
 }
