@@ -26,7 +26,10 @@ public class Outcome {
 		boolean notWasDefense = true;
 
 		for (Pixel pixel : this.getDefenseArea()) {
-			
+			if (pixel.equals(shot.getPixel())) {
+
+			}
+
 		}
 
 		return false;
@@ -38,29 +41,38 @@ public class Outcome {
 
 		int positionX = pivotDefenseArea.getPx();
 		int positionY = pivotDefenseArea.getPy();
-		int upperLimit = this.getUpperLimit();
-		int leftLimit = this.getLeftLimit();
+
+		int upperLimit = this.getGoalAreaUpperLimit();
+		int leftLimit = this.getGoalAreaLeftLimit();
 
 		defenseArea.add(pivotDefenseArea);
 
 		for (int i = 1; i < this.goalkeeper.getGPA(); i++) {
-			if (positionX + 1 < upperLimit) {
-				positionX++;
+			if (positionX - 1 > upperLimit) {
+				positionX--;
+				defenseArea.add(new Pixel(positionX, positionY));
 			} else if (positionY + 1 < leftLimit) {
 				positionY++;
 				positionX = pivotDefenseArea.getPx();
+				defenseArea.add(new Pixel(positionX, positionY, true));
 			} else {
 				break;
 			}
-			// Check if is Margin
-			
+		}
 
+		// Marking the maginal pixels in the left
+		int indexOf;
+		for (int i = 0; i < defenseArea.size(); i++) {
+			indexOf = defenseArea.size() - 1 - i;
+			if (defenseArea.get(indexOf).getPy() == positionY) {
+				defenseArea.get(indexOf).setIsMargin(true);
+			}
 		}
 
 		return defenseArea;
 	}
 
-	public int getUpperLimit() {
+	public int getGoalAreaUpperLimit() {
 		switch (shot.getQuadrant().getQuadrantNumber()) {
 		case 1:
 			return goalpost.getTopLeftCorner().getPx();
@@ -75,7 +87,7 @@ public class Outcome {
 		}
 	}
 
-	public int getLeftLimit() {
+	public int getGoalAreaLeftLimit() {
 		switch (shot.getQuadrant().getQuadrantNumber()) {
 		case 1:
 			return shot.getQuadrant().getTopLeftCorner().getPy() + 1;

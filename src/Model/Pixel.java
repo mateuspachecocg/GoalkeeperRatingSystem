@@ -33,7 +33,9 @@ public class Pixel {
 		return isMargin;
 	}
 	
-	
+	public void setIsMargin(boolean isMargin) {
+		this.isMargin = isMargin;
+	}
 	
 	
 }
