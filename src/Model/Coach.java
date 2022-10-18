@@ -1,7 +1,9 @@
 package Model;
 
-public class Coach {
-
+public class Coach
+{
+	
+	
 	public Pixel pivotDefenseArea(Quadrant quadrant, Goalpost goalpost) {
 		int positionX = 0, positionY = 0;
 
@@ -33,6 +35,36 @@ public class Coach {
 		}
 
 		return new Pixel(positionX, positionY);
+	}
+	
+	public int getUpperLimit(Quadrant quadrant, Goalpost goalpost) {
+		switch (quadrant.getQuadrantNumber()) {
+		case 1:
+			return goalpost.getTopLeftCorner().getPx();
+		case 2:
+			return goalpost.getTopRigthCorner().getPx();
+		case 3:
+			return quadrant.getTopLeftCorner().getPx()+1;
+		case 4:
+			return quadrant.getTopLeftCorner().getPx() + 1; 
+		default:
+			return -1;
+		}
+	}
+	
+	public int getLeftLimit(Quadrant quadrant, Goalpost goalpost) {
+		switch (quadrant.getQuadrantNumber()) {
+		case 1:
+			return quadrant.getTopLeftCorner().getPy() + 1;
+		case 2:
+			return goalpost.getTopRigthCorner().getPy();
+		case 3:
+			return quadrant.getBottomRigthCorner().getPy() + 1;
+		case 4:
+			return goalpost.getBottomRightCorner().getPy(); 
+		default:
+			return -1;
+		}
 	}
 
 	private int getRandomIntegerBetweenRange(double min, double max) {

@@ -4,15 +4,14 @@ public class Shot {
 	private int id;
 	private int strength;
 	private Quadrant quadrant;
-	private int px, py;
+	private Pixel pixel;
 
-	public Shot(int id, int strength, Quadrant quadrant, int px, int py) {
+	public Shot(int id, int strength, Quadrant quadrant, Pixel pixel) {
 		super();
 		this.id = id;
 		this.strength = strength;
 		this.quadrant = quadrant;
-		this.px = px;
-		this.py = py;
+		this.pixel = pixel;
 	}
 
 	public int getId() {
@@ -22,13 +21,9 @@ public class Shot {
 	public Quadrant getQuadrant() {
 		return quadrant;
 	}
-
-	public int getPx() {
-		return px;
-	}
-
-	public int getPy() {
-		return py;
+	
+	public Pixel getPixel() {
+		return pixel;
 	}
 	
 	public int getStrength() {
