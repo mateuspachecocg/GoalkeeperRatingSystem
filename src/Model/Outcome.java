@@ -10,7 +10,8 @@ public class Outcome {
 	private Pixel pivotDefenseArea;
 	private Shot shot;
 	private Goalpost goalpost;
-	private boolean wasGoal;
+	private ArrayList<Pixel> defenseArea;
+	private boolean wasDefense;
 
 	public Outcome(int id, Team team, Goalkeeper goalkeeper, Pixel pivotDefenseArea, Shot shot, Goalpost goalpost) {
 		super();
@@ -20,14 +21,15 @@ public class Outcome {
 		this.pivotDefenseArea = pivotDefenseArea;
 		this.shot = shot;
 		this.goalpost = goalpost;
-		this.wasGoal = this.wasDefense();
+		this.defenseArea = this.calcDefenseArea();
+		this.wasDefense = this.verifyWasDefense();
 	}
 
-	private boolean wasDefense() {
+	private boolean verifyWasDefense() {
 
 		boolean wasDefense = false;
 		for (Pixel pixel : this.getDefenseArea()) {
-			if (shot.getPixel().equals(pixel)) {
+			if (shot.getPixel().getPx() == pixel.getPx() && shot.getPixel().getPy() == pixel.getPy()) {
 				// Checking if is a Margin Pixel
 				if (pixel.isMargin()) {
 					// Checking the Strengths
@@ -46,7 +48,7 @@ public class Outcome {
 		return wasDefense;
 	}
 
-	private ArrayList<Pixel> getDefenseArea() {
+	private ArrayList<Pixel> calcDefenseArea() {
 
 		ArrayList<Pixel> defenseArea = new ArrayList<Pixel>();
 
@@ -90,9 +92,9 @@ public class Outcome {
 		case 2:
 			return goalpost.getTopRigthCorner().getPx();
 		case 3:
-			return shot.getQuadrant().getTopLeftCorner().getPx() + 1;
+			return shot.getQuadrant().getTopLeftCorner().getPx() - 1;
 		case 4:
-			return shot.getQuadrant().getTopLeftCorner().getPx() + 1;
+			return shot.getQuadrant().getTopLeftCorner().getPx() - 1;
 		default:
 			return -1;
 		}
@@ -112,7 +114,14 @@ public class Outcome {
 			return -1;
 		}
 	}
-
+	
+	private ArrayList<Pixel> getDefenseArea() {
+		return defenseArea;
+	}
+	
+	public boolean wasDefense() {
+		return wasDefense;
+	}
 	
 	public Team getTeam() {
 		return team;
@@ -126,5 +135,4 @@ public class Outcome {
 		return shot;
 	}
 
-	
 }

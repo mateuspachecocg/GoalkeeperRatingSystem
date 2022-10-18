@@ -29,25 +29,47 @@ public class Main {
 
 		// Solutions for Questions
 		showTeamsAverageDefense(trainingResults);
-
+		
+		
+		
 		System.out.println();
 	}
 
-	// Functions for Question 01
+	// Functions for Question 01, 02 e 03.
 	public static void showTeamsAverageDefense(ArrayList<Outcome> results) {
-		int defenseCount = 0;
-		double average;
+		int defenseCount = 0, notDefenseCount = 0;
+		double average, bestAverage = 0.0;
+		Goalkeeper teamBetterGPK;
 		for (Team team : bd_teams) {
-			for (Outcome otc : results) {
-				if (team.getId() == otc.getTeam().getId()) {
-					defenseCount++;
+			teamBetterGPK = team.getGoalkeepers().get(0);
+			System.out.println("Team " + team.getName() + ": ");
+			for (Goalkeeper gpk : team.getGoalkeepers()) {
+				for (Outcome otc : results) {
+					if (otc.getGoalkeeper().getId() == gpk.getId()) {
+						if (otc.wasDefense()) {
+							defenseCount++;
+						} else {
+							notDefenseCount++;
+						}
+					}
 				}
+				average = (double) defenseCount / (1.0*(defenseCount + notDefenseCount));
+				if(average >= bestAverage) {
+					if(gpk.getStrength() >= teamBetterGPK.getStrength()) {
+						teamBetterGPK = gpk;
+					}
+					bestAverage = average;
+				}
+				
+				System.out.printf("    Goalkeeper: %s\t\tDEFENSE COUNT: %.2f defense per shot.\n", gpk.getName(),
+						average);
+				
+				defenseCount = 0;
+				notDefenseCount = 0;
 			}
-			average = (double) defenseCount / 1.0 * team.getGoalkeepers().size();
+			
+			System.out.println("\n    RECOMMEDATION FOR THE FIRST-STRING GOALKEEPER: "+ teamBetterGPK.getName());
 
-			System.out.printf("TEAM: %s - DEFENSE AVERAGE: %2f\n", team.getName(), average);
-
-			defenseCount = 0;
 		}
 
 	}

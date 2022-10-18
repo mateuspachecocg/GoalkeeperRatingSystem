@@ -21,11 +21,11 @@ public class Goalkeeper {
 		this.coordination = coordination;
 		this.strength = strength;
 		this.balance = balance;
-		this.GPA = this.getGPA();
+		this.GPA = this.calGPA();
 	}
 
 	// GPA is the goalkeeper's playing area
-	public int getGPA() {
+	private int calGPA() {
 		int gpa = (this.speed * 3 + this.flexibility * 2 + this.agility * 3 + this.coordination * 2 + this.strength
 				+ this.balance * 2) / 8;
 
@@ -34,6 +34,10 @@ public class Goalkeeper {
 		} else {
 			return -1;
 		}
+	}
+	
+	public int getGPA() {
+		return GPA;
 	}
 
 	public int getId() {
