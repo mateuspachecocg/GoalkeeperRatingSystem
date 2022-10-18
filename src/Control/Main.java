@@ -13,39 +13,89 @@ public class Main {
 	public static Quadrant forthQuadrant = new Quadrant(4, new Pixel(5, 9), new Pixel(7, 17));
 	public static ArrayList<Shot> bd_shots;
 	public static ArrayList<Goalkeeper> bd_goalkeepers;
-	public static ArrayList<Team> bd_team;
-	
+	public static ArrayList<Team> bd_teams;
+
 	public static void main(String[] args) {
-		 loadShots();
-		 loadGoalkeepers();
-		 loadTeams(); 
-		Goalpost goalpost = new Goalpost(new Pixel(7,1),new Pixel(1,1),new Pixel(1,16), new Pixel(7,16));
-		 
-		 // Loading Goalkeepers to Teams.
-		 
-		 
-		 // Instance a Goalkeeper Coach
-		 for(Goalkeeper gpk: bd_goalkeepers) {
-			 System.out.println("Name: "+gpk.getName()+" AAG: "+gpk.getGPA());
-		 }
-		 
-		 
+		// Loading Data
+		loadShots();
+		loadGoalkeepers();
+		loadTeams();
+
+		Goalpost goalpost = new Goalpost(new Pixel(7, 1), new Pixel(1, 1), new Pixel(1, 16), new Pixel(7, 16));
+		Coach coach = new Coach();
+
+		// Training Session
+		ArrayList<Outcome> trainingResults = trainingGoalkeepers(coach, goalpost);
+
+		// Solutions for Questions
+		showTeamsAverageDefense(trainingResults);
+
+		System.out.println();
 	}
-	
+
+	// Functions for Question 01
+	public static void showTeamsAverageDefense(ArrayList<Outcome> results) {
+		int defenseCount = 0;
+		double average;
+		for (Team team : bd_teams) {
+			for (Outcome otc : results) {
+				if (team.getId() == otc.getTeam().getId()) {
+					defenseCount++;
+				}
+			}
+			average = (double) defenseCount / 1.0 * team.getGoalkeepers().size();
+
+			System.out.printf("TEAM: %s - DEFENSE AVERAGE: %2f\n", team.getName(), average);
+
+			defenseCount = 0;
+		}
+
+	}
+
+	public static ArrayList<Outcome> trainingGoalkeepers(Coach coach, Goalpost goalpost) {
+		ArrayList<Outcome> outcomes = new ArrayList<Outcome>();
+		int idCount = 1;
+		Pixel pivotDefense;
+		for (Team team : bd_teams) {
+			for (Goalkeeper gpk : team.getGoalkeepers()) {
+				for (Shot shot : bd_shots) {
+					// Generating a PixelPivotDefenseArea
+					pivotDefense = coach.getPivotDefenseArea(shot.getQuadrant(), goalpost);
+					outcomes.add(new Outcome(idCount, team, gpk, pivotDefense, shot, goalpost));
+					idCount++;
+				}
+			}
+		}
+
+		return outcomes;
+	}
+
 	public static void loadTeams() {
-		bd_team = new ArrayList<Team>(); 
-		Team brazil = new Team(1, "Brazil", new ArrayList<Goalkeeper>(bd_goalkeepers.subList(0, 4)));
-		Team belgium = new Team(2, "Belgium", new ArrayList<Goalkeeper>(bd_goalkeepers.subList(5, 9)));
-		Team argentina = new Team(3, "Argentina", new ArrayList<Goalkeeper>(bd_goalkeepers.subList(10, 14)));
-		Team france = new Team(4, "France", new ArrayList<Goalkeeper>(bd_goalkeepers.subList(15, 19)));
-		Team italy = new Team(5, "Italy", new ArrayList<Goalkeeper>(bd_goalkeepers.subList(20, 24)));
-		Team spain = new Team(6, "Spain", new ArrayList<Goalkeeper>(bd_goalkeepers.subList(25, 26)));
-		bd_team.add(brazil);
-		bd_team.add(belgium);
-		bd_team.add(argentina);
-		bd_team.add(france);
-		bd_team.add(italy);
-		bd_team.add(spain);
+
+		Team brazil = new Team(1, "Brazil");
+		Team belgium = new Team(2, "Belgium");
+		Team argentina = new Team(3, "Argentina");
+		Team france = new Team(4, "France");
+		Team italy = new Team(5, "Italy");
+		Team spain = new Team(6, "Spain");
+		bd_teams = new ArrayList<Team>();
+		bd_teams.add(brazil);
+		bd_teams.add(belgium);
+		bd_teams.add(argentina);
+		bd_teams.add(france);
+		bd_teams.add(italy);
+
+		int k = 0;
+
+		for (Team team : bd_teams) {
+			for (int i = 0; i < 5; i++) {
+				team.addGoalkeeper(bd_goalkeepers.get(k));
+				k++;
+			}
+		}
+
+		// bd_teams.add(spain);
+		// bd_teams.get(5).addGoalkeeper(bd_goalkeepers.get(k));
 	}
 
 	public static void loadShots() {
@@ -124,7 +174,6 @@ public class Main {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
 		}
-
 
 	}
 

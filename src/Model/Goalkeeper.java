@@ -9,6 +9,7 @@ public class Goalkeeper {
 	private int coordination;
 	private int strength;
 	private int balance;
+	private int GPA;
 
 	public Goalkeeper(int id, String name, int speed, int flexibility, int agility, int coordination, int strength,
 			int balance) {
@@ -20,6 +21,7 @@ public class Goalkeeper {
 		this.coordination = coordination;
 		this.strength = strength;
 		this.balance = balance;
+		this.GPA = this.getGPA();
 	}
 
 	// GPA is the goalkeeper's playing area

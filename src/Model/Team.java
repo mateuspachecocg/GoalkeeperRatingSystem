@@ -7,8 +7,9 @@ public class Team {
 	private String name;
 	private ArrayList<Goalkeeper> goalkeepers;
 
-	public Team(String name) {
+	public Team(int id, String name) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.goalkeepers = new ArrayList<Goalkeeper>();
 	}
@@ -20,6 +21,9 @@ public class Team {
 		this.goalkeepers = new ArrayList<Goalkeeper>();
 	}
 
+	public int getId() {
+		return id;
+	}
 	public String getName() {
 		return name;
 	}
