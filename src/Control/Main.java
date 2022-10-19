@@ -26,7 +26,7 @@ public class Main {
 
 		// Training Session
 		ArrayList<Outcome> trainingResults = trainingGoalkeepers(coach, goalpost);
-
+		
 		// Solutions for Questions
 		showTeamsAverageDefense(trainingResults);
 		
@@ -37,7 +37,7 @@ public class Main {
 
 	// Functions for Question 01, 02 e 03.
 	public static void showTeamsAverageDefense(ArrayList<Outcome> results) {
-		int defenseCount = 0, notDefenseCount = 0;
+		int defenseCount = 0, outCount = 0, goalTakenCount = 0;
 		double average, bestAverage = 0.0;
 		Goalkeeper teamBetterGPK;
 		for (Team team : bd_teams) {
@@ -49,11 +49,16 @@ public class Main {
 						if (otc.wasDefense()) {
 							defenseCount++;
 						} else {
-							notDefenseCount++;
+							if(otc.wasGoal()) {
+								goalTakenCount++;
+							} else {
+								outCount++;
+							}
+							
 						}
 					}
 				}
-				average = (double) defenseCount / (1.0*(defenseCount + notDefenseCount));
+				average = (double) defenseCount / (1.0*(defenseCount + goalTakenCount));
 				if(average >= bestAverage) {
 					if(gpk.getStrength() >= teamBetterGPK.getStrength()) {
 						teamBetterGPK = gpk;
@@ -61,11 +66,11 @@ public class Main {
 					bestAverage = average;
 				}
 				
-				System.out.printf("    Goalkeeper: %s\t\tDEFENSE COUNT: %.2f defense per shot.\n", gpk.getName(),
-						average);
-				
+				System.out.printf("    Goalkeeper: %s\t\tDEFENSE COUNT: %2.0f defenses per 100 shot and %d goals taked.\n", gpk.getName(),
+						average*100, goalTakenCount);
+				goalTakenCount = 0;
 				defenseCount = 0;
-				notDefenseCount = 0;
+				outCount = 0;
 			}
 			
 			System.out.println("\n    RECOMMEDATION FOR THE FIRST-STRING GOALKEEPER: "+ teamBetterGPK.getName());

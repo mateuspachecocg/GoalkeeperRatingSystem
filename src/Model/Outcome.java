@@ -12,6 +12,7 @@ public class Outcome {
 	private Goalpost goalpost;
 	private ArrayList<Pixel> defenseArea;
 	private boolean wasDefense;
+	private boolean wasGoal;
 
 	public Outcome(int id, Team team, Goalkeeper goalkeeper, Pixel pivotDefenseArea, Shot shot, Goalpost goalpost) {
 		super();
@@ -23,10 +24,31 @@ public class Outcome {
 		this.goalpost = goalpost;
 		this.defenseArea = this.calcDefenseArea();
 		this.wasDefense = this.verifyWasDefense();
+		this.wasGoal = this.verifyWasGoal();
 	}
 
+	private boolean verifyWasGoal() {
+		boolean returnStatement = false;
+		if(!wasDefense) {
+			switch(shot.getQuadrant().getQuadrantNumber()) {
+			case 1:
+				returnStatement = shot.getPixel().getPy() > goalpost.getTopLeftCorner().getPy() && shot.getPixel().getPx() > goalpost.getTopLeftCorner().getPx();
+				break;
+			case 2:
+				returnStatement = shot.getPixel().getPy() < goalpost.getTopRigthCorner().getPy() && shot.getPixel().getPx() > goalpost.getTopLeftCorner().getPx();				
+				break;
+			case 3:
+				returnStatement = shot.getPixel().getPy() > goalpost.getBottomLeftCorner().getPy();
+				break;
+			case 4:
+				returnStatement = shot.getPixel().getPy() < goalpost.getTopRigthCorner().getPy();
+				break;
+			}
+		} 
+		
+		return returnStatement;
+	}
 	private boolean verifyWasDefense() {
-
 		boolean wasDefense = false;
 		for (Pixel pixel : this.getDefenseArea()) {
 			if (shot.getPixel().getPx() == pixel.getPx() && shot.getPixel().getPy() == pixel.getPy()) {
@@ -118,7 +140,9 @@ public class Outcome {
 	private ArrayList<Pixel> getDefenseArea() {
 		return defenseArea;
 	}
-	
+	public boolean wasGoal() {
+		return wasGoal;
+	}
 	public boolean wasDefense() {
 		return wasDefense;
 	}
