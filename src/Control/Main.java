@@ -21,6 +21,10 @@ public class Main {
 		loadGoalkeepers();
 		loadTeams();
 
+		// Adding shots in the Corner of the Goalpost
+		bd_shots.add(new Shot(31, 8, firstQuadrant, new Pixel(2, 2)));
+		bd_shots.add(new Shot(32, 8, secondQuadrant, new Pixel(2, 15)));
+
 		Goalpost goalpost = new Goalpost(new Pixel(7, 1), new Pixel(1, 1), new Pixel(1, 16), new Pixel(7, 16));
 		Coach coach = new Coach();
 
@@ -28,24 +32,45 @@ public class Main {
 		ArrayList<Outcome> trainingResults = trainingGoalkeepers(coach, goalpost);
 
 		// Solutions for Questions
-		//showTeamsAverageDefense(trainingResults);
-		classifyShots(goalpost);
+		// showTeamsAverageDefense(trainingResults);
+		// classifyShots(goalpost);
+		// showGoalsInTheCrossbar(trainingResults, goalpost);
 
 		System.out.println();
 	}
 
-	// Functions for Question 04
+	// Method for Question 05
+	public static void showGoalsInTheCrossbar(ArrayList<Outcome> results, Goalpost goalpost) {
+		boolean testResult;
+		int shotPositionX, shotPositionY;
+		System.out.println("LIST OF OUTCOMES WITH GOAL IN THE CROSS BAR");
+		for (Outcome out : results) {
+
+			if (out.wasGoal() && out.getShot().getQuadrant().getQuadrantNumber() < 3) {
+				shotPositionX = out.getShot().getPixel().getPx();
+				shotPositionY = out.getShot().getPixel().getPy();
+
+				testResult = (shotPositionX == goalpost.getTopLeftCorner().getPx() + 1)
+						|| (shotPositionX == goalpost.getTopRigthCorner().getPx() + 1);
+				testResult = testResult && (shotPositionY == goalpost.getTopLeftCorner().getPy() + 1
+						|| shotPositionY == goalpost.getTopRigthCorner().getPy() - 1);
+
+				if (testResult) {
+					System.out.printf("OUTCOME ID: %-5d \tGOALKEEPER: %-16s \tSHOT ID: %-3d\n", out.getId(),
+							out.getGoalkeeper().getName(), out.getShot().getId());
+				}
+			}
+		}
+
+	}
+
+	// Method for Question 04
 	public static void classifyShots(Goalpost goalpost) {
-		int outCount = 0, 
-			leftGoalpostCount = 0, 
-			RigthGoalpostCount = 0, 
-			crossbarCount = 0,
-			insideCount = 0;
+		int outCount = 0, leftGoalpostCount = 0, RigthGoalpostCount = 0, crossbarCount = 0, insideCount = 0;
 
 		for (Shot shot : bd_shots) {
-			int shotPositionX = shot.getPixel().getPx(), 
-				shotPositionY = shot.getPixel().getPy();
-			
+			int shotPositionX = shot.getPixel().getPx(), shotPositionY = shot.getPixel().getPy();
+
 			Quadrant shotQuadrant = shot.getQuadrant();
 
 			switch (shotQuadrant.getQuadrantNumber()) {
@@ -53,9 +78,11 @@ public class Main {
 				if (shotPositionY == goalpost.getTopLeftCorner().getPy()
 						&& shotPositionX > shotQuadrant.getTopLeftCorner().getPx()) {
 					leftGoalpostCount++;
-				} else if(shotPositionX == goalpost.getTopLeftCorner().getPx() && shotPositionY > goalpost.getTopLeftCorner().getPy()) {
+				} else if (shotPositionX == goalpost.getTopLeftCorner().getPx()
+						&& shotPositionY > goalpost.getTopLeftCorner().getPy()) {
 					crossbarCount++;
-				} else if(shotPositionX < goalpost.getTopLeftCorner().getPx() || shotPositionY < goalpost.getTopLeftCorner().getPy()) {
+				} else if (shotPositionX < goalpost.getTopLeftCorner().getPx()
+						|| shotPositionY < goalpost.getTopLeftCorner().getPy()) {
 					outCount++;
 				} else {
 					insideCount++;
@@ -65,9 +92,11 @@ public class Main {
 				if (shotPositionY == goalpost.getTopRigthCorner().getPy()
 						&& shotPositionX > shotQuadrant.getTopLeftCorner().getPx()) {
 					RigthGoalpostCount++;
-				} else if(shotPositionX == goalpost.getTopRigthCorner().getPx() && shotPositionY < goalpost.getTopRigthCorner().getPy()) {
+				} else if (shotPositionX == goalpost.getTopRigthCorner().getPx()
+						&& shotPositionY < goalpost.getTopRigthCorner().getPy()) {
 					crossbarCount++;
-				} else if(shotPositionX < goalpost.getTopLeftCorner().getPx() || shotPositionY > goalpost.getTopLeftCorner().getPy()) {
+				} else if (shotPositionX < goalpost.getTopLeftCorner().getPx()
+						|| shotPositionY > goalpost.getTopLeftCorner().getPy()) {
 					outCount++;
 				} else {
 					insideCount++;
@@ -76,7 +105,7 @@ public class Main {
 			case 3:
 				if (shotPositionY == goalpost.getBottomLeftCorner().getPy()) {
 					leftGoalpostCount++;
-				} else if(shotPositionY < goalpost.getBottomLeftCorner().getPy()) {
+				} else if (shotPositionY < goalpost.getBottomLeftCorner().getPy()) {
 					outCount++;
 				} else {
 					insideCount++;
@@ -85,7 +114,7 @@ public class Main {
 			case 4:
 				if (shotPositionY == goalpost.getBottomRightCorner().getPy()) {
 					RigthGoalpostCount++;
-				} else if(shotPositionY > goalpost.getBottomRightCorner().getPy()) {
+				} else if (shotPositionY > goalpost.getBottomRightCorner().getPy()) {
 					outCount++;
 				} else {
 					insideCount++;
@@ -93,13 +122,11 @@ public class Main {
 				break;
 			}
 		}
-		
-		System.out.printf("\t\tSHOT STATISTIC\n"
-				+ "\tCROSSBAR  : %-3d\n"
-				+ "\tPOST-LEFT : %-3d\n"
-				+ "\tPOST-RIGHT: %-3d\n"
-				+ "\tOUT       : %-3d\n"
-				+ "\tINSIDE    : %-3d\n", crossbarCount, leftGoalpostCount,RigthGoalpostCount, outCount, insideCount);
+
+		System.out.printf(
+				"\t\tSHOT STATISTIC\n" + "\tCROSSBAR  : %-3d\n" + "\tPOST-LEFT : %-3d\n" + "\tPOST-RIGHT: %-3d\n"
+						+ "\tOUT       : %-3d\n" + "\tINSIDE    : %-3d\n",
+				crossbarCount, leftGoalpostCount, RigthGoalpostCount, outCount, insideCount);
 	}
 
 	// Functions for Question 01, 02 e 03.

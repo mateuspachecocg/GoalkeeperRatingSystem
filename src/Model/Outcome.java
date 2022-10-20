@@ -158,5 +158,9 @@ public class Outcome {
 	public Shot getShot() {
 		return shot;
 	}
+	
+	public int getId() {
+		return id;
+	}
 
 }
