@@ -33,16 +33,68 @@ public class Main {
 		System.out.println();
 	}
 
+	// Functions for Question 04
+	public static void classifyShots(Goalpost goalpost) {
+		int outCount = 0, 
+			leftGoalpostCount = 0, 
+			RigthGoalpostCount = 0, 
+			crossbarCount = 0;
+
+		for (Shot shot : bd_shots) {
+			int shotPositionX = shot.getPixel().getPx(), 
+				shotPositionY = shot.getPixel().getPy();
+			
+			Quadrant shotQuadrant = shot.getQuadrant();
+
+			switch (shotQuadrant.getQuadrantNumber()) {
+			case 1:
+				if (shotPositionY == goalpost.getTopLeftCorner().getPy()
+						&& shotPositionX > shotQuadrant.getTopLeftCorner().getPx()) {
+					leftGoalpostCount++;
+				} else if(shotPositionX == goalpost.getTopLeftCorner().getPx() && shotPositionY > goalpost.getTopLeftCorner().getPy()) {
+					crossbarCount++;
+				} else if(shotPositionX < goalpost.getTopLeftCorner().getPx() || shotPositionY < goalpost.getTopLeftCorner().getPy()) {
+					outCount++;
+				}
+				break;
+			case 2:
+				if (shotPositionY == goalpost.getTopRigthCorner().getPy()
+						&& shotPositionX > shotQuadrant.getTopLeftCorner().getPx()) {
+					RigthGoalpostCount++;
+				} else if(shotPositionX == goalpost.getTopRigthCorner().getPx() && shotPositionY < goalpost.getTopRigthCorner().getPy()) {
+					crossbarCount++;
+				} else if(shotPositionX < goalpost.getTopLeftCorner().getPx() || shotPositionY > goalpost.getTopLeftCorner().getPy()) {
+					outCount++;
+				}
+				break;
+			case 3:
+				if (shotPositionY == goalpost.getBottomLeftCorner().getPy()) {
+					leftGoalpostCount++;
+				} else if(shotPositionY < goalpost.getBottomLeftCorner().getPy()) {
+					outCount++;
+				}
+				break;
+			case 4:
+				if (shotPositionY == goalpost.getBottomRightCorner().getPy()) {
+					RigthGoalpostCount++;
+				} else if(shotPositionY > goalpost.getBottomLeftCorner().getPy()) {
+					outCount++;
+				}
+				break;
+			}
+		}
+	}
+
 	// Functions for Question 01, 02 e 03.
 	public static void showTeamsAverageDefense(ArrayList<Outcome> results) {
 		int defenseCount = 0, outCount = 0, goalTakenCount = 0;
 		double averageCurrentGPK = 0, bestAverageTeam = 0.0;
 		Goalkeeper bestTeamGoalkeeper;
 		for (Team team : bd_teams) {
-			
+
 			bestTeamGoalkeeper = team.getGoalkeepers().get(0);
 			System.out.println("Team " + team.getName() + ": ");
-			
+
 			for (Goalkeeper currentGoalpeeker : team.getGoalkeepers()) {
 				for (Outcome otc : results) {
 					if (otc.getGoalkeeper().getId() == currentGoalpeeker.getId()) {
@@ -57,16 +109,17 @@ public class Main {
 						}
 					}
 				}
-				
+
 				averageCurrentGPK = (defenseCount / (1.0 * (defenseCount + goalTakenCount)));
-				//System.out.println(averageCurrentGPK + " >= " + bestAverageTeam + " == " + (averageCurrentGPK >= bestAverageTeam));
+				// System.out.println(averageCurrentGPK + " >= " + bestAverageTeam + " == " +
+				// (averageCurrentGPK >= bestAverageTeam));
 				if (averageCurrentGPK == bestAverageTeam) {
 					if (currentGoalpeeker.getStrength() >= bestTeamGoalkeeper.getStrength()) {
 						bestTeamGoalkeeper = currentGoalpeeker;
 						bestAverageTeam = averageCurrentGPK;
-					} 
+					}
 
-				} else if(averageCurrentGPK > bestAverageTeam) {
+				} else if (averageCurrentGPK > bestAverageTeam) {
 					bestTeamGoalkeeper = currentGoalpeeker;
 					bestAverageTeam = averageCurrentGPK;
 				}

@@ -1,41 +1,41 @@
 Team Brazil: 
-    Goalkeeper:  Pratik Skaggs       DEFENSE COUNT: 20 defenses per 100 shot and 20 goals taked.
-    Goalkeeper:  Uehudah Hack        DEFENSE COUNT: 28 defenses per 100 shot and 18 goals taked.
-    Goalkeeper:  Edison Drye         DEFENSE COUNT: 20 defenses per 100 shot and 20 goals taked.
-    Goalkeeper:  Ajani Harding       DEFENSE COUNT: 28 defenses per 100 shot and 18 goals taked.
-    Goalkeeper:  Orazio Hart         DEFENSE COUNT: 24 defenses per 100 shot and 19 goals taked.
+    Goalkeeper:  Pratik Skaggs       DEFENSE COUNT:  8 defenses per 100 shot and 23 goals taked.
+    Goalkeeper:  Uehudah Hack        DEFENSE COUNT: 24 defenses per 100 shot and 19 goals taked.
+    Goalkeeper:  Edison Drye         DEFENSE COUNT: 32 defenses per 100 shot and 17 goals taked.
+    Goalkeeper:  Ajani Harding       DEFENSE COUNT: 12 defenses per 100 shot and 22 goals taked.
+    Goalkeeper:  Orazio Hart         DEFENSE COUNT: 20 defenses per 100 shot and 20 goals taked.
 
-    RECOMMEDATION FOR THE FIRST-STRING GOALKEEPER:  Ajani Harding
+    RECOMMEDATION FOR THE FIRST-STRING GOALKEEPER:  Edison Drye
 Team Belgium: 
-    Goalkeeper:  Tristan Karns       DEFENSE COUNT: 32 defenses per 100 shot and 17 goals taked.
+    Goalkeeper:  Tristan Karns       DEFENSE COUNT: 16 defenses per 100 shot and 21 goals taked.
     Goalkeeper:  Niven Glaser        DEFENSE COUNT: 12 defenses per 100 shot and 22 goals taked.
-    Goalkeeper:  Derwyn Devers       DEFENSE COUNT: 16 defenses per 100 shot and 21 goals taked.
-    Goalkeeper:  Tod Phan            DEFENSE COUNT: 20 defenses per 100 shot and 20 goals taked.
-    Goalkeeper:  Eddie Hulse         DEFENSE COUNT: 12 defenses per 100 shot and 22 goals taked.
+    Goalkeeper:  Derwyn Devers       DEFENSE COUNT: 40 defenses per 100 shot and 15 goals taked.
+    Goalkeeper:  Tod Phan            DEFENSE COUNT:  8 defenses per 100 shot and 23 goals taked.
+    Goalkeeper:  Eddie Hulse         DEFENSE COUNT: 24 defenses per 100 shot and 19 goals taked.
 
-    RECOMMEDATION FOR THE FIRST-STRING GOALKEEPER:  Tristan Karns
+    RECOMMEDATION FOR THE FIRST-STRING GOALKEEPER:  Derwyn Devers
 Team Argentina: 
-    Goalkeeper:  Welford Yepez       DEFENSE COUNT: 24 defenses per 100 shot and 19 goals taked.
-    Goalkeeper:  Rishley Snyder      DEFENSE COUNT: 16 defenses per 100 shot and 21 goals taked.
-    Goalkeeper:  Milo Mccurdy        DEFENSE COUNT: 32 defenses per 100 shot and 17 goals taked.
-    Goalkeeper:  Carden Justus       DEFENSE COUNT: 28 defenses per 100 shot and 18 goals taked.
+    Goalkeeper:  Welford Yepez       DEFENSE COUNT: 28 defenses per 100 shot and 18 goals taked.
+    Goalkeeper:  Rishley Snyder      DEFENSE COUNT:  8 defenses per 100 shot and 23 goals taked.
+    Goalkeeper:  Milo Mccurdy        DEFENSE COUNT: 16 defenses per 100 shot and 21 goals taked.
+    Goalkeeper:  Carden Justus       DEFENSE COUNT: 32 defenses per 100 shot and 17 goals taked.
     Goalkeeper:  Carlyon Gorby       DEFENSE COUNT: 28 defenses per 100 shot and 18 goals taked.
 
-    RECOMMEDATION FOR THE FIRST-STRING GOALKEEPER:  Milo Mccurdy
+    RECOMMEDATION FOR THE FIRST-STRING GOALKEEPER:  Carden Justus
 Team France: 
-    Goalkeeper:  Mungo Spangler      DEFENSE COUNT: 32 defenses per 100 shot and 17 goals taked.
-    Goalkeeper:  Whitmore Squires    DEFENSE COUNT: 24 defenses per 100 shot and 19 goals taked.
-    Goalkeeper:  Pedrog Mccurdy      DEFENSE COUNT: 20 defenses per 100 shot and 20 goals taked.
-    Goalkeeper:  Ridgley Leo         DEFENSE COUNT: 24 defenses per 100 shot and 19 goals taked.
-    Goalkeeper:  Bolton Tarin        DEFENSE COUNT: 24 defenses per 100 shot and 19 goals taked.
+    Goalkeeper:  Mungo Spangler      DEFENSE COUNT: 28 defenses per 100 shot and 18 goals taked.
+    Goalkeeper:  Whitmore Squires    DEFENSE COUNT: 20 defenses per 100 shot and 20 goals taked.
+    Goalkeeper:  Pedrog Mccurdy      DEFENSE COUNT: 12 defenses per 100 shot and 22 goals taked.
+    Goalkeeper:  Ridgley Leo         DEFENSE COUNT: 16 defenses per 100 shot and 21 goals taked.
+    Goalkeeper:  Bolton Tarin        DEFENSE COUNT: 40 defenses per 100 shot and 15 goals taked.
 
-    RECOMMEDATION FOR THE FIRST-STRING GOALKEEPER:  Mungo Spangler
+    RECOMMEDATION FOR THE FIRST-STRING GOALKEEPER:  Bolton Tarin
 Team Italy: 
-    Goalkeeper:  Edison Loy          DEFENSE COUNT: 16 defenses per 100 shot and 21 goals taked.
-    Goalkeeper:  Delling Herndon     DEFENSE COUNT: 24 defenses per 100 shot and 19 goals taked.
-    Goalkeeper:  Senichi Iorio       DEFENSE COUNT: 20 defenses per 100 shot and 20 goals taked.
-    Goalkeeper:  Albin Kerner        DEFENSE COUNT: 36 defenses per 100 shot and 16 goals taked.
-    Goalkeeper:  Jivin Justus        DEFENSE COUNT: 12 defenses per 100 shot and 22 goals taked.
+    Goalkeeper:  Edison Loy          DEFENSE COUNT: 24 defenses per 100 shot and 19 goals taked.
+    Goalkeeper:  Delling Herndon     DEFENSE COUNT: 12 defenses per 100 shot and 22 goals taked.
+    Goalkeeper:  Senichi Iorio       DEFENSE COUNT: 24 defenses per 100 shot and 19 goals taked.
+    Goalkeeper:  Albin Kerner        DEFENSE COUNT: 16 defenses per 100 shot and 21 goals taked.
+    Goalkeeper:  Jivin Justus        DEFENSE COUNT: 28 defenses per 100 shot and 18 goals taked.
 
-    RECOMMEDATION FOR THE FIRST-STRING GOALKEEPER:  Albin Kerner
+    RECOMMEDATION FOR THE FIRST-STRING GOALKEEPER:  Jivin Justus
 
