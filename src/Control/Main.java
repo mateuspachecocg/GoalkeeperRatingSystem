@@ -26,54 +26,60 @@ public class Main {
 
 		// Training Session
 		ArrayList<Outcome> trainingResults = trainingGoalkeepers(coach, goalpost);
-		
+
 		// Solutions for Questions
 		showTeamsAverageDefense(trainingResults);
-		
-		
-		
+
 		System.out.println();
 	}
 
 	// Functions for Question 01, 02 e 03.
 	public static void showTeamsAverageDefense(ArrayList<Outcome> results) {
 		int defenseCount = 0, outCount = 0, goalTakenCount = 0;
-		double average, bestAverage = 0.0;
-		Goalkeeper teamBetterGPK;
+		double averageCurrentGPK = 0, bestAverageTeam = 0.0;
+		Goalkeeper bestTeamGoalkeeper;
 		for (Team team : bd_teams) {
-			teamBetterGPK = team.getGoalkeepers().get(0);
+			
+			bestTeamGoalkeeper = team.getGoalkeepers().get(0);
 			System.out.println("Team " + team.getName() + ": ");
-			for (Goalkeeper gpk : team.getGoalkeepers()) {
+			
+			for (Goalkeeper currentGoalpeeker : team.getGoalkeepers()) {
 				for (Outcome otc : results) {
-					if (otc.getGoalkeeper().getId() == gpk.getId()) {
+					if (otc.getGoalkeeper().getId() == currentGoalpeeker.getId()) {
 						if (otc.wasDefense()) {
 							defenseCount++;
 						} else {
-							if(otc.wasGoal()) {
+							if (otc.wasGoal()) {
 								goalTakenCount++;
 							} else {
 								outCount++;
 							}
-							
 						}
 					}
 				}
-				average = (double) defenseCount / (1.0*(defenseCount + goalTakenCount));
-				if(average >= bestAverage) {
-					if(gpk.getStrength() >= teamBetterGPK.getStrength()) {
-						teamBetterGPK = gpk;
-					}
-					bestAverage = average;
-				}
 				
-				System.out.printf("    Goalkeeper: %s\t\tDEFENSE COUNT: %2.0f defenses per 100 shot and %d goals taked.\n", gpk.getName(),
-						average*100, goalTakenCount);
+				averageCurrentGPK = (defenseCount / (1.0 * (defenseCount + goalTakenCount)));
+				//System.out.println(averageCurrentGPK + " >= " + bestAverageTeam + " == " + (averageCurrentGPK >= bestAverageTeam));
+				if (averageCurrentGPK == bestAverageTeam) {
+					if (currentGoalpeeker.getStrength() >= bestTeamGoalkeeper.getStrength()) {
+						bestTeamGoalkeeper = currentGoalpeeker;
+						bestAverageTeam = averageCurrentGPK;
+					} 
+
+				} else if(averageCurrentGPK > bestAverageTeam) {
+					bestTeamGoalkeeper = currentGoalpeeker;
+					bestAverageTeam = averageCurrentGPK;
+				}
+
+				System.out.printf(
+						"    Goalkeeper: %-17s    DEFENSE COUNT: %2.0f defenses per 100 shot and %d goals taked.\n",
+						currentGoalpeeker.getName(), averageCurrentGPK * 100, goalTakenCount);
 				goalTakenCount = 0;
 				defenseCount = 0;
 				outCount = 0;
 			}
-			
-			System.out.println("\n    RECOMMEDATION FOR THE FIRST-STRING GOALKEEPER: "+ teamBetterGPK.getName());
+			bestAverageTeam = 0;
+			System.out.println("\n    RECOMMEDATION FOR THE FIRST-STRING GOALKEEPER: " + bestTeamGoalkeeper.getName());
 
 		}
 
