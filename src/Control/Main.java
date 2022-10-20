@@ -29,21 +29,105 @@ public class Main {
 		Coach coach = new Coach();
 
 		// Training Session
-		ArrayList<Outcome> trainingResults = trainingGoalkeepers(coach, goalpost);
-
+		ArrayList<Outcome> trainingResults = trainingGoalkeepers(goalpost);
+		
+		// Counting the Defenses for Each Goalkeeper
+		setGoalAndDefense(trainingResults);
+		
+		
 		// Solutions for Questions
 		// showTeamsAverageDefense(trainingResults);
 		// classifyShots(goalpost);
 		// showGoalsInTheCrossbar(trainingResults, goalpost);
-
+		teamsWithBetterGoalkeepers(trainingResults);
 		System.out.println();
+	}
+
+	// Method for Question 06
+	public static void teamsWithBetterGoalkeepers(ArrayList<Outcome> results) {
+		int defenseCount = 0, outCount = 0, goalTakenCount = 0, goalsTakenBestTeamGoalkeeper = 0;
+		double averageCurrentGPK = 0, bestAverageTeam = 0.0;
+		Goalkeeper bestTeamGoalkeeper;
+		ArrayList<Goalkeeper> bestGoalkeeperList = new ArrayList<Goalkeeper>();
+		for (Team team : bd_teams) {
+
+			bestTeamGoalkeeper = team.getGoalkeepers().get(0);
+			System.out.println("Team " + team.getName() + ": ");
+
+			for (Goalkeeper currentGoalkeeper : team.getGoalkeepers()) {
+				for (Outcome otc : results) {
+					if (otc.getGoalkeeper().getId() == currentGoalkeeper.getId()) {
+						if (otc.wasDefense()) {
+							defenseCount++;
+						} else {
+							if (otc.wasGoal()) {
+								goalTakenCount++;
+							} else {
+								outCount++;
+							}
+						}
+					}
+				}
+
+				averageCurrentGPK = (defenseCount / (1.0 * (defenseCount + goalTakenCount)));
+				currentGoalkeeper.setGoalsTaken(goalTakenCount);
+				// System.out.println(averageCurrentGPK + " >= " + bestAverageTeam + " == " +
+				// (averageCurrentGPK >= bestAverageTeam));
+				if (averageCurrentGPK == bestAverageTeam) {
+					if (currentGoalkeeper.getStrength() > bestTeamGoalkeeper.getStrength()) {
+						bestTeamGoalkeeper = currentGoalkeeper;
+						bestAverageTeam = averageCurrentGPK;
+						goalsTakenBestTeamGoalkeeper = goalTakenCount;
+					} else if (currentGoalkeeper.getStrength() == bestTeamGoalkeeper.getStrength()
+							&& goalTakenCount < goalsTakenBestTeamGoalkeeper) {
+						bestTeamGoalkeeper = currentGoalkeeper;
+						bestAverageTeam = averageCurrentGPK;
+						goalsTakenBestTeamGoalkeeper = goalTakenCount;
+					}
+
+				} else if (averageCurrentGPK > bestAverageTeam) {
+					bestTeamGoalkeeper = currentGoalkeeper;
+					bestAverageTeam = averageCurrentGPK;
+				}
+
+				System.out.printf(
+						"    Goalkeeper: %-17s    DEFENSE COUNT: %2.0f (%-2d) defenses per 100 shot and %d (out %-2d) goals taked.\n",
+						currentGoalkeeper.getName(), averageCurrentGPK * 100, defenseCount,
+						currentGoalkeeper.getGoalsTaken(), outCount);
+				goalTakenCount = 0;
+				defenseCount = 0;
+				outCount = 0;
+
+			}
+			bestGoalkeeperList.add(bestTeamGoalkeeper);
+			bestAverageTeam = 0;
+			System.out.println("\n    RECOMMEDATION FOR THE FIRST-STRING GOALKEEPER: " + bestTeamGoalkeeper.getName());
+		}
+
+		// List 3 Betters
+		String teamName;
+		Collections.sort(bestGoalkeeperList);
+		System.out.println("\n\n TEAMS WITH BETTER GOALPEEKERS ");
+		for (int i = 0; i < 3; i++) {
+			teamName = "";
+			for (Team team : bd_teams) {
+				if (team.getGoalkeepers().contains(bestGoalkeeperList.get(i))) {
+					teamName = team.getName();
+					break;
+				}
+			}
+			System.out.printf("%-2d - TEAM: %-10s\tGOALKEEPER: %-16s\tGOALS TAKEN: %d\n", (i + 1), teamName,
+					bestGoalkeeperList.get(i).getName(), bestGoalkeeperList.get(i).getGoalsTaken());
+		}
+
 	}
 
 	// Method for Question 05
 	public static void showGoalsInTheCrossbar(ArrayList<Outcome> results, Goalpost goalpost) {
 		boolean testResult;
 		int shotPositionX, shotPositionY;
-		System.out.println("LIST OF OUTCOMES WITH GOAL IN THE CROSS BAR");
+		String side;
+		System.out.println("LIST OF OUTCOMES WITH GOAL IN THE CORN CROSSBAR");
 		for (Outcome out : results) {
 
 			if (out.wasGoal() && out.getShot().getQuadrant().getQuadrantNumber() < 3) {
@@ -56,12 +140,12 @@ public class Main {
 						|| shotPositionY == goalpost.getTopRigthCorner().getPy() - 1);
 
 				if (testResult) {
-					System.out.printf("OUTCOME ID: %-5d \tGOALKEEPER: %-16s \tSHOT ID: %-3d\n", out.getId(),
-							out.getGoalkeeper().getName(), out.getShot().getId());
+					side = out.getShot().getQuadrant().getQuadrantNumber() == 1 ? "LEFT" : "RIGTH";
+					System.out.printf("OUTCOME ID: %-5d \tGOALKEEPER: %-16s \tSHOT ID: %-3d\tSIDE: %s\n", out.getId(),
+							out.getGoalkeeper().getName(), out.getShot().getId(), side);
 				}
 			}
 		}
-
 	}
 
 	// Method for Question 04
@@ -131,17 +215,18 @@ public class Main {
 
 	// Functions for Question 01, 02 e 03.
 	public static void showTeamsAverageDefense(ArrayList<Outcome> results) {
-		int defenseCount = 0, outCount = 0, goalTakenCount = 0;
+		int defenseCount = 0, outCount = 0, goalTakenCount = 0, goalsTakenBestTeamGoalkeeper = 0;
 		double averageCurrentGPK = 0, bestAverageTeam = 0.0;
 		Goalkeeper bestTeamGoalkeeper;
+		ArrayList<Goalkeeper> bestGoalkeeperList = new ArrayList<Goalkeeper>();
 		for (Team team : bd_teams) {
 
 			bestTeamGoalkeeper = team.getGoalkeepers().get(0);
 			System.out.println("Team " + team.getName() + ": ");
 
-			for (Goalkeeper currentGoalpeeker : team.getGoalkeepers()) {
+			for (Goalkeeper currentGoalkeeper : team.getGoalkeepers()) {
 				for (Outcome otc : results) {
-					if (otc.getGoalkeeper().getId() == currentGoalpeeker.getId()) {
+					if (otc.getGoalkeeper().getId() == currentGoalkeeper.getId()) {
 						if (otc.wasDefense()) {
 							defenseCount++;
 						} else {
@@ -155,34 +240,42 @@ public class Main {
 				}
 
 				averageCurrentGPK = (defenseCount / (1.0 * (defenseCount + goalTakenCount)));
+				currentGoalkeeper.setGoalsTaken(goalTakenCount);
 				// System.out.println(averageCurrentGPK + " >= " + bestAverageTeam + " == " +
 				// (averageCurrentGPK >= bestAverageTeam));
 				if (averageCurrentGPK == bestAverageTeam) {
-					if (currentGoalpeeker.getStrength() >= bestTeamGoalkeeper.getStrength()) {
-						bestTeamGoalkeeper = currentGoalpeeker;
+					if (currentGoalkeeper.getStrength() > bestTeamGoalkeeper.getStrength()) {
+						bestTeamGoalkeeper = currentGoalkeeper;
 						bestAverageTeam = averageCurrentGPK;
+						goalsTakenBestTeamGoalkeeper = goalTakenCount;
+					} else if (currentGoalkeeper.getStrength() == bestTeamGoalkeeper.getStrength()
+							&& goalTakenCount < goalsTakenBestTeamGoalkeeper) {
+						bestTeamGoalkeeper = currentGoalkeeper;
+						bestAverageTeam = averageCurrentGPK;
+						goalsTakenBestTeamGoalkeeper = goalTakenCount;
 					}
 
 				} else if (averageCurrentGPK > bestAverageTeam) {
-					bestTeamGoalkeeper = currentGoalpeeker;
+					bestTeamGoalkeeper = currentGoalkeeper;
 					bestAverageTeam = averageCurrentGPK;
 				}
 
 				System.out.printf(
 						"    Goalkeeper: %-17s    DEFENSE COUNT: %2.0f defenses per 100 shot and %d goals taked.\n",
-						currentGoalpeeker.getName(), averageCurrentGPK * 100, goalTakenCount);
+						currentGoalkeeper.getName(), averageCurrentGPK * 100, currentGoalkeeper.getGoalsTaken());
 				goalTakenCount = 0;
 				defenseCount = 0;
 				outCount = 0;
+
 			}
+			bestGoalkeeperList.add(bestTeamGoalkeeper);
 			bestAverageTeam = 0;
 			System.out.println("\n    RECOMMEDATION FOR THE FIRST-STRING GOALKEEPER: " + bestTeamGoalkeeper.getName());
-
 		}
 
 	}
 
-	public static ArrayList<Outcome> trainingGoalkeepers(Coach coach, Goalpost goalpost) {
+	public static ArrayList<Outcome> trainingGoalkeepers(Goalpost goalpost) {
 		ArrayList<Outcome> outcomes = new ArrayList<Outcome>();
 		int idCount = 1;
 		Pixel pivotDefense;
@@ -190,7 +283,7 @@ public class Main {
 			for (Goalkeeper gpk : team.getGoalkeepers()) {
 				for (Shot shot : bd_shots) {
 					// Generating a PixelPivotDefenseArea
-					pivotDefense = coach.getPivotDefenseArea(shot.getQuadrant(), goalpost);
+					pivotDefense = gpk.getPivotDefenseArea(shot.getQuadrant(), goalpost);
 					outcomes.add(new Outcome(idCount, team, gpk, pivotDefense, shot, goalpost));
 					idCount++;
 				}
@@ -198,6 +291,29 @@ public class Main {
 		}
 
 		return outcomes;
+	}
+
+	public static void setGoalAndDefense(ArrayList<Outcome> results) {
+		int defenseCount = 0, goalTakenCount = 0;
+
+		for (Goalkeeper currentGoalkeeper : bd_goalkeepers) {
+
+			for (Outcome otc : results) {
+				if (otc.getGoalkeeper().getId() == currentGoalkeeper.getId()) {
+					if (otc.wasDefense()) {
+						defenseCount++;
+					} else {
+						if (otc.wasGoal()) {
+							goalTakenCount++;
+						}
+					}
+				}
+			}
+			currentGoalkeeper.setGoalsTaken(goalTakenCount);
+			currentGoalkeeper.setNumberOfDefenses(defenseCount);
+			goalTakenCount = 0;
+			defenseCount = 0;
+		}
 	}
 
 	public static void loadTeams() {
