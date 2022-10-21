@@ -78,7 +78,7 @@ public class Outcome {
 		int positionY = pivotDefenseArea.getPy();
 
 		int upperLimit = this.getGoalAreaUpperLimit();
-		int leftLimit = this.getGoalAreaLeftLimit();
+		int rigthLimit = this.getGoalAreaRigthLimit();
 
 		defenseArea.add(pivotDefenseArea);
 
@@ -86,7 +86,7 @@ public class Outcome {
 			if (positionX - 1 > upperLimit) {
 				positionX--;
 				defenseArea.add(new Pixel(positionX, positionY));
-			} else if (positionY + 1 < leftLimit) {
+			} else if (positionY + 1 < rigthLimit) {
 				positionY++;
 				positionX = pivotDefenseArea.getPx();
 				defenseArea.add(new Pixel(positionX, positionY, true));
@@ -95,7 +95,7 @@ public class Outcome {
 			}
 		}
 
-		// Marking the maginal pixels in the left
+		// Marking the maginal pixels in the rigth
 		int indexOf;
 		for (int i = 0; i < defenseArea.size(); i++) {
 			indexOf = defenseArea.size() - 1 - i;
@@ -122,7 +122,7 @@ public class Outcome {
 		}
 	}
 
-	private int getGoalAreaLeftLimit() {
+	private int getGoalAreaRigthLimit() {
 		switch (shot.getQuadrant().getQuadrantNumber()) {
 		case 1:
 			return shot.getQuadrant().getTopLeftCorner().getPy() + 1;
