@@ -57,18 +57,17 @@ public class Goalkeeper implements Comparable<Goalkeeper>{
 
 	@Override
 	public int compareTo(Goalkeeper gpk0) {
-		if(this.getGoalsTaken() == gpk0.getGoalsTaken())
-			if(this.strength > gpk0.getStrength()) {
-				return 1;
-			} else if(this.strength == gpk0.getStrength()) {
-				return 0;
-			} else {
-				return -1;
-			}
-		if(this.getGoalsTaken() > gpk0.getGoalsTaken())
-			return 1;
-		else
+		if (this.goalsTaken < gpk0.getGoalsTaken()) {
 			return -1;
+		} else if(this.goalsTaken == gpk0.getGoalsTaken()) {
+			if(this.strength > gpk0.getStrength()) {
+				return -1;
+			} else {
+				return 0;
+			}
+		} else {
+			return 1;
+		}
 	}
 
 	public int getGoalsTaken() {
