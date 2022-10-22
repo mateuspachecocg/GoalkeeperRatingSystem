@@ -7,14 +7,14 @@ public class Outcome {
 	private int id;
 	private Team team;
 	private Goalkeeper goalkeeper;
-	private Pixel pivotDefenseArea;
+	private PixelDefense pivotDefenseArea;
 	private Shot shot;
 	private Goalpost goalpost;
-	private ArrayList<Pixel> defenseArea;
+	private ArrayList<PixelDefense> defenseArea;
 	private boolean wasDefense;
 	private boolean wasGoal;
 
-	public Outcome(int id, Team team, Goalkeeper goalkeeper, Pixel pivotDefenseArea, Shot shot, Goalpost goalpost) {
+	public Outcome(int id, Team team, Goalkeeper goalkeeper, PixelDefense pivotDefenseArea, Shot shot, Goalpost goalpost) {
 		super();
 		this.id = id;
 		this.team = team;
@@ -50,7 +50,7 @@ public class Outcome {
 	}
 	private boolean verifyWasDefense() {
 		boolean wasDefense = false;
-		for (Pixel pixel : this.getDefenseArea()) {
+		for (PixelDefense pixel : this.getDefenseArea()) {
 			if (shot.getPixel().getPx() == pixel.getPx() && shot.getPixel().getPy() == pixel.getPy()) {
 				// Checking if is a Margin Pixel
 				if (pixel.isMargin()) {
@@ -70,9 +70,9 @@ public class Outcome {
 		return wasDefense;
 	}
 
-	private ArrayList<Pixel> calcDefenseArea() {
+	private ArrayList<PixelDefense> calcDefenseArea() {
 
-		ArrayList<Pixel> defenseArea = new ArrayList<Pixel>();
+		ArrayList<PixelDefense> defenseArea = new ArrayList<PixelDefense>();
 
 		int positionX = pivotDefenseArea.getPx();
 		int positionY = pivotDefenseArea.getPy();
@@ -85,11 +85,11 @@ public class Outcome {
 		for (int i = 1; i < this.goalkeeper.getGPA(); i++) {
 			if (positionX - 1 > upperLimit) {
 				positionX--;
-				defenseArea.add(new Pixel(positionX, positionY));
+				defenseArea.add(new PixelDefense(positionX, positionY));
 			} else if (positionY + 1 < rigthLimit) {
 				positionY++;
 				positionX = pivotDefenseArea.getPx();
-				defenseArea.add(new Pixel(positionX, positionY, true));
+				defenseArea.add(new PixelDefense(positionX, positionY, true));
 			} else {
 				break;
 			}
@@ -100,7 +100,7 @@ public class Outcome {
 		for (int i = 0; i < defenseArea.size(); i++) {
 			indexOf = defenseArea.size() - 1 - i;
 			if (defenseArea.get(indexOf).getPy() == positionY) {
-				defenseArea.get(indexOf).setIsMargin(true);
+				defenseArea.get(indexOf).setMargin(true);
 			}
 		}
 
@@ -137,7 +137,7 @@ public class Outcome {
 		}
 	}
 	
-	private ArrayList<Pixel> getDefenseArea() {
+	private ArrayList<PixelDefense> getDefenseArea() {
 		return defenseArea;
 	}
 	public boolean wasGoal() {

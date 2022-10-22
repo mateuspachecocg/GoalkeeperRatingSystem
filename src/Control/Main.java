@@ -2,6 +2,8 @@ package Control;
 
 import java.util.*;
 import Model.*;
+
+import java.io.Console;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -41,6 +43,7 @@ public class Main {
 
 		// Criando interface de cadastro
 		Scanner input = new Scanner(System.in);
+
 		int control = 1;
 		while (control != 0) {
 			mainMenu();
@@ -69,7 +72,8 @@ public class Main {
 				showGoalBecauseLackOfStrength(trainingResults);
 				break;
 			case 8:
-
+				System.out.print("PLEASE ENTER GOALKEEPER ID: ");
+				showEventsGoalkeeperByID(Integer.parseInt(input.nextLine()), trainingResults, goalpost);
 				break;
 			case 0:
 				control = 0;
@@ -77,11 +81,112 @@ public class Main {
 			default:
 				continue;
 			}
+			System.out.println();
 		}
 
 		input.close();
 
 		System.out.println();
+	}
+
+	// Method for Question10
+	public static void showEventsGoalkeeperByID(int idGpk, ArrayList<Outcome> results, Goalpost goalpost) {
+		Goalkeeper gpk = null;
+
+		boolean goalkeeperDoNotExist = true;
+		for (Goalkeeper g : bd_goalkeepers) {
+			if (g.getId() == idGpk) {
+				gpk = g;
+				goalkeeperDoNotExist = false;
+				break;
+			}
+		}
+
+		if (goalkeeperDoNotExist) {
+			System.out.println("NOT FIND GOALKEEPER WITH ID " + idGpk);
+		} else {
+			int x, y;
+			boolean wasFound;
+			ArrayList<PixelSpecial> listPixel = new ArrayList<PixelSpecial>();
+			for (Outcome out : results) {
+				if ((out.wasDefense() || out.wasGoal()) && out.getGoalkeeper().getId() == gpk.getId()) {
+					// Verify if the pixel already was created
+					wasFound = false;
+					for (PixelSpecial pixel : listPixel) {
+						if (pixel.sameCoordinates(out.getShot().getPixel())) {
+							wasFound = true;
+							if (out.wasGoal()) {
+								pixel.plusGoalHere();
+							} else {
+								pixel.plusDefenseHere();
+							}
+						}
+					}
+
+					if (!wasFound) {
+						PixelSpecial newPixel = new PixelSpecial(out.getShot().getPixel());
+						if (out.wasDefense()) {
+							newPixel.plusDefenseHere();
+						} else {
+							newPixel.plusGoalHere();
+						}
+						listPixel.add(newPixel);
+					}
+				}
+			}
+			boolean isInPixelList;
+			System.out.print("      ");
+			for (y = 0; y <= forthQuadrant.getBottomRigthCorner().getPy(); y++) {
+				System.out.printf("  %-2d  ", y);
+			}
+			System.out.println();
+			for (x = 0; x <= forthQuadrant.getBottomRigthCorner().getPx(); x++) {
+				System.out.print("      ");
+				for (y = 0; y <= forthQuadrant.getBottomRigthCorner().getPy(); y++) {
+					System.out.print("------");
+				}
+				System.out.println();
+				System.out.printf("  %-2d  ", x);
+				for (y = 0; y <= forthQuadrant.getBottomRigthCorner().getPy(); y++) {
+					if ((y < goalpost.getTopLeftCorner().getPy() || y > goalpost.getTopRigthCorner().getPy()
+							|| x < goalpost.getTopLeftCorner().getPx())) {
+						System.out.print("| OT  ");
+					} else if (y == goalpost.getTopLeftCorner().getPy() || y == goalpost.getTopRigthCorner().getPy()
+							|| x == goalpost.getTopLeftCorner().getPx()) {
+						System.out.print("| GP  ");
+					} else {
+						isInPixelList = false;
+						for (PixelSpecial ps : listPixel) {
+							if (ps.sameCoordinates(new Pixel(x, y))) {
+								if (ps.getDefensesHere() > 0 || ps.getGoalsHere() > 0) {
+									if (ps.getDefensesHere() == 1) {
+										System.out.printf("|  X  ");
+									} else {
+										System.out.printf("| %dX  ", ps.getDefensesHere());
+									}
+								} else {
+									if (ps.getGoalsHere() == 1) {
+										System.out.printf("|  *  ");
+									} else {
+										System.out.printf("| %d*  ", ps.getGoalsHere());
+									}
+								}
+							}
+						}
+						if (!isInPixelList) {
+							System.out.print("|     ");
+						}
+
+					}
+				}
+				System.out.println("|");
+			}
+
+//			System.out.printf(
+//					"GOALS TAKEN PER QUADRANT\nTHE GOALKEEPER: %-16s\n\tFIRST : %-2d\n\tSECOND: %-2d\n\tTHIRD : %-2d\n\tFORTH : %-2d\n",
+//					gpk.getName(), firstQuadCount, secondQuadCount, thirdQuadCount, forthQuadCount);
+		}
+
 	}
 
 	// Method for Question09
@@ -98,7 +203,7 @@ public class Main {
 		}
 
 		if (goalkeeperDoNotExist) {
-			System.out.println("ID informado para Goleiro não existe!");
+			System.out.println("NOT FIND GOALKEEPER WITH ID " + idGpk);
 		} else {
 			int firstQuadCount = 0, secondQuadCount = 0, thirdQuadCount = 0, forthQuadCount = 0;
 			for (Outcome out : results) {
@@ -200,8 +305,8 @@ public class Main {
 
 				if (testResult) {
 					side = out.getShot().getQuadrant().getQuadrantNumber() == 1 ? "LEFT" : "RIGTH";
-					System.out.printf("OUTCOME ID	: %-5d \tGOALKEEPER: %-16s \tSHOT ID: %-3d\tSIDE: %s\n", out.getId(),
-							out.getGoalkeeper().getName(), out.getShot().getId(), side);
+					System.out.printf("OUTCOME ID	: %-5d \tGOALKEEPER: %-16s \tSHOT ID: %-3d\tSIDE: %s\n",
+							out.getId(), out.getGoalkeeper().getName(), out.getShot().getId(), side);
 				}
 			}
 		}
@@ -295,15 +400,15 @@ public class Main {
 	public static ArrayList<Outcome> trainingGoalkeepers(Goalpost goalpost) {
 		ArrayList<Outcome> outcomes = new ArrayList<Outcome>();
 		int idCount = 1;
-		Pixel pivotDefense;
+		PixelDefense pivotDefense;
 		for (Team team : bd_teams) {
 			for (Goalkeeper gpk : team.getGoalkeepers()) {
 				for (Shot shot : bd_shots) {
 					// Generating a PixelPivotDefenseArea
 					pivotDefense = gpk.getPivotDefenseArea(shot.getQuadrant(), goalpost);
-					
+
 					outcomes.add(new Outcome(idCount, team, gpk, pivotDefense, shot, goalpost));
-					
+
 					idCount++;
 				}
 			}
@@ -451,10 +556,9 @@ public class Main {
 		System.out.println("5 - SHOW INFORMATIONS ABOUT GOALKEEPERS");
 		System.out.println("6 - QUADRANT WITH MORE BY GOALKEEPER ID");
 		System.out.println("7 - SHOW GOALS BECAUSE LACK OF STRENGTH");
-		System.out.println("8 - QUADRANT WITH MORE BY GOALKEEPER ID");
+		System.out.println("8 - MAPING GOALS AND DEFENSES MORE BY GOALKEEPER ID");
 		System.out.println("0 - PARA SAIR DO PROGRAMA");
-		System.out.print("ESCOLHA:");
-		System.out.println();
+		System.out.print("ESCOLHA: ");
 
 	}
 }

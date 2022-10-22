@@ -9,15 +9,26 @@ FINISH THE TRAINING SERSSION...
 5 - SHOW INFORMATIONS ABOUT GOALKEEPERS
 6 - QUADRANT WITH MORE BY GOALKEEPER ID
 7 - SHOW GOALS BECAUSE LACK OF STRENGTH
-8 - QUADRANT WITH MORE BY GOALKEEPER ID
+8 - MAPING GOALS AND DEFENSES MORE BY GOALKEEPER ID
 0 - PARA SAIR DO PROGRAMA
-ESCOLHA:
-PLEASE ENTER GOALKEEPER ID: GOALS TAKEN PER QUADRANT
-THE GOALKEEPER:  Pratik Skaggs  
-	FIRST : 4 
-	SECOND: 2 
-	THIRD : 6 
-	FORTH : 10
+ESCOLHA: PLEASE ENTER GOALKEEPER ID:         0     1     2     3     4     5     6     7     8     9     10    11    12    13    14    15    16    17  
+      ------------------------------------------------------------------------------------------------------------
+  0   | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  |
+      ------------------------------------------------------------------------------------------------------------
+  1   | OT  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | OT  |
+      ------------------------------------------------------------------------------------------------------------
+  2   | OT  | GP  | 0X  |     |     |     |     |     |     |     |     |     |     |     | 0X  |     |     | 0X  |     | GP  | OT  |
+      ------------------------------------------------------------------------------------------------------------
+  3   | OT  | GP  |     |     |     |     | 0X  |     |     |     |     |     |     |     |     | 0X  |     |     | GP  | OT  |
+      ------------------------------------------------------------------------------------------------------------
+  4   | OT  | GP  | 0X  |     |     |     |     |     | 0X  |     |     |     |     |     |     |     |     | 0X  |     | GP  | OT  |
+      ------------------------------------------------------------------------------------------------------------
+  5   | OT  | GP  |     | 0X  |     |     |     |     |     | 0X  |     |     |     |     |     |  X  |     |     |  X  |     | GP  | OT  |
+      ------------------------------------------------------------------------------------------------------------
+  6   | OT  | GP  |     |     | 2X  |     |     |     |  X  |     |     |     |     | 0X  |     | 0X  |     |     |  X  |     |     | GP  | OT  |
+      ------------------------------------------------------------------------------------------------------------
+  7   | OT  | GP  |     |     |     |     |     |     |     |     |  X  |     | 0X  |     | 0X  |     |     | 2X  |     |     | GP  | OT  |
+
 ------------------------- CHOOSE A OPTION BELOW -------------------------
 1 - SHOW TEAMS AVERAGE DEFENSE PER GOALKEEPER
 2 - CLASSIFY SHOTS
@@ -26,23 +37,6 @@ THE GOALKEEPER:  Pratik Skaggs
 5 - SHOW INFORMATIONS ABOUT GOALKEEPERS
 6 - QUADRANT WITH MORE BY GOALKEEPER ID
 7 - SHOW GOALS BECAUSE LACK OF STRENGTH
-8 - QUADRANT WITH MORE BY GOALKEEPER ID
+8 - MAPING GOALS AND DEFENSES MORE BY GOALKEEPER ID
 0 - PARA SAIR DO PROGRAMA
-ESCOLHA:
-PLEASE ENTER GOALKEEPER ID: GOALS TAKEN PER QUADRANT
-THE GOALKEEPER:  Uehudah Hack   
-	FIRST : 4 
-	SECOND: 2 
-	THIRD : 7 
-	FORTH : 8 
-------------------------- CHOOSE A OPTION BELOW -------------------------
-1 - SHOW TEAMS AVERAGE DEFENSE PER GOALKEEPER
-2 - CLASSIFY SHOTS
-3 - SHOW GOALS INT THE CORNER OF THE CROSSBAR
-4 - RANKING THE BETTER GOALKEEPER PER TEAM
-5 - SHOW INFORMATIONS ABOUT GOALKEEPERS
-6 - QUADRANT WITH MORE BY GOALKEEPER ID
-7 - SHOW GOALS BECAUSE LACK OF STRENGTH
-8 - QUADRANT WITH MORE BY GOALKEEPER ID
-0 - PARA SAIR DO PROGRAMA
-ESCOLHA:
+ESCOLHA: 

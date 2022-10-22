@@ -86,7 +86,7 @@ public class Goalkeeper implements Comparable<Goalkeeper>{
 		this.numberOfDefenses = numberOfDefenses;
 	}
 	
-	public Pixel getPivotDefenseArea(Quadrant quadrant, Goalpost goalpost) {
+	public PixelDefense getPivotDefenseArea(Quadrant quadrant, Goalpost goalpost) {
 		int positionX = 0, positionY = 0;
 
 		switch (quadrant.getQuadrantNumber()) {
@@ -116,7 +116,7 @@ public class Goalkeeper implements Comparable<Goalkeeper>{
 			break;
 		}
 
-		return new Pixel(positionX, positionY);
+		return new PixelDefense(positionX, positionY);
 	}
 
 	public int getUpperLimit(Quadrant quadrant, Goalpost goalpost) {
