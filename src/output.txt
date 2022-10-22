@@ -9,25 +9,34 @@ FINISH THE TRAINING SERSSION...
 5 - SHOW INFORMATIONS ABOUT GOALKEEPERS
 6 - QUADRANT WITH MORE BY GOALKEEPER ID
 7 - SHOW GOALS BECAUSE LACK OF STRENGTH
-8 - MAPING GOALS AND DEFENSES MORE BY GOALKEEPER ID
+8 - MAPING GOALS AND DEFENSES BY GOALKEEPER ID
 0 - PARA SAIR DO PROGRAMA
-ESCOLHA: PLEASE ENTER GOALKEEPER ID:         0     1     2     3     4     5     6     7     8     9     10    11    12    13    14    15    16    17  
-      ------------------------------------------------------------------------------------------------------------
-  0   | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  |
-      ------------------------------------------------------------------------------------------------------------
-  1   | OT  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | OT  |
-      ------------------------------------------------------------------------------------------------------------
-  2   | OT  | GP  | 0X  |     |     |     |     |     |     |     |     |     |     |     | 0X  |     |     | 0X  |     | GP  | OT  |
-      ------------------------------------------------------------------------------------------------------------
-  3   | OT  | GP  |     |     |     |     | 0X  |     |     |     |     |     |     |     |     | 0X  |     |     | GP  | OT  |
-      ------------------------------------------------------------------------------------------------------------
-  4   | OT  | GP  | 0X  |     |     |     |     |     | 0X  |     |     |     |     |     |     |     |     | 0X  |     | GP  | OT  |
-      ------------------------------------------------------------------------------------------------------------
-  5   | OT  | GP  |     | 0X  |     |     |     |     |     | 0X  |     |     |     |     |     |  X  |     |     |  X  |     | GP  | OT  |
-      ------------------------------------------------------------------------------------------------------------
-  6   | OT  | GP  |     |     | 2X  |     |     |     |  X  |     |     |     |     | 0X  |     | 0X  |     |     |  X  |     |     | GP  | OT  |
-      ------------------------------------------------------------------------------------------------------------
-  7   | OT  | GP  |     |     |     |     |     |     |     |     |  X  |     | 0X  |     | 0X  |     |     | 2X  |     |     | GP  | OT  |
+ESCOLHA: GPK ID: 1 	NAME:  Pratik Skaggs    	TEAM: Brazil          	GOALS TAKEN: 22 	DEFENSES: 5  	AGG: 11 
+GPK ID: 2 	NAME:  Uehudah Hack     	TEAM: Brazil          	GOALS TAKEN: 19 	DEFENSES: 8  	AGG: 13 
+GPK ID: 3 	NAME:  Edison Drye      	TEAM: Brazil          	GOALS TAKEN: 20 	DEFENSES: 7  	AGG: 10 
+GPK ID: 4 	NAME:  Ajani Harding    	TEAM: Brazil          	GOALS TAKEN: 23 	DEFENSES: 4  	AGG: 10 
+GPK ID: 5 	NAME:  Orazio Hart      	TEAM: Brazil          	GOALS TAKEN: 21 	DEFENSES: 6  	AGG: 12 
+GPK ID: 6 	NAME:  Tristan Karns    	TEAM: Belgium         	GOALS TAKEN: 20 	DEFENSES: 7  	AGG: 13 
+GPK ID: 7 	NAME:  Niven Glaser     	TEAM: Belgium         	GOALS TAKEN: 22 	DEFENSES: 5  	AGG: 12 
+GPK ID: 8 	NAME:  Derwyn Devers    	TEAM: Belgium         	GOALS TAKEN: 21 	DEFENSES: 6  	AGG: 12 
+GPK ID: 9 	NAME:  Tod Phan         	TEAM: Belgium         	GOALS TAKEN: 23 	DEFENSES: 4  	AGG: 11 
+GPK ID: 10	NAME:  Eddie Hulse      	TEAM: Belgium         	GOALS TAKEN: 22 	DEFENSES: 5  	AGG: 10 
+GPK ID: 11	NAME:  Welford Yepez    	TEAM: Argentina       	GOALS TAKEN: 23 	DEFENSES: 4  	AGG: 11 
+GPK ID: 12	NAME:  Rishley Snyder   	TEAM: Argentina       	GOALS TAKEN: 24 	DEFENSES: 3  	AGG: 9  
+GPK ID: 13	NAME:  Milo Mccurdy     	TEAM: Argentina       	GOALS TAKEN: 20 	DEFENSES: 7  	AGG: 14 
+GPK ID: 14	NAME:  Carden Justus    	TEAM: Argentina       	GOALS TAKEN: 22 	DEFENSES: 5  	AGG: 11 
+GPK ID: 15	NAME:  Carlyon Gorby    	TEAM: Argentina       	GOALS TAKEN: 19 	DEFENSES: 8  	AGG: 11 
+GPK ID: 16	NAME:  Mungo Spangler   	TEAM: France          	GOALS TAKEN: 16 	DEFENSES: 11 	AGG: 13 
+GPK ID: 17	NAME:  Whitmore Squires 	TEAM: France          	GOALS TAKEN: 22 	DEFENSES: 5  	AGG: 14 
+GPK ID: 18	NAME:  Pedrog Mccurdy   	TEAM: France          	GOALS TAKEN: 20 	DEFENSES: 7  	AGG: 11 
+GPK ID: 19	NAME:  Ridgley Leo      	TEAM: France          	GOALS TAKEN: 19 	DEFENSES: 8  	AGG: 13 
+GPK ID: 20	NAME:  Bolton Tarin     	TEAM: France          	GOALS TAKEN: 16 	DEFENSES: 11 	AGG: 13 
+GPK ID: 21	NAME:  Edison Loy       	TEAM: Italy           	GOALS TAKEN: 20 	DEFENSES: 7  	AGG: 11 
+GPK ID: 22	NAME:  Delling Herndon  	TEAM: Italy           	GOALS TAKEN: 19 	DEFENSES: 8  	AGG: 11 
+GPK ID: 23	NAME:  Senichi Iorio    	TEAM: Italy           	GOALS TAKEN: 19 	DEFENSES: 8  	AGG: 10 
+GPK ID: 24	NAME:  Albin Kerner     	TEAM: Italy           	GOALS TAKEN: 21 	DEFENSES: 6  	AGG: 12 
+GPK ID: 25	NAME:  Jivin Justus     	TEAM: Italy           	GOALS TAKEN: 24 	DEFENSES: 3  	AGG: 12 
+GPK ID: 26	NAME:  Clement Fleisher 	TEAM:                 	GOALS TAKEN: 0  	DEFENSES: 0  	AGG: 13 
 
 ------------------------- CHOOSE A OPTION BELOW -------------------------
 1 - SHOW TEAMS AVERAGE DEFENSE PER GOALKEEPER
@@ -37,6 +46,34 @@ ESCOLHA: PLEASE ENTER GOALKEEPER ID:         0     1     2     3     4     5    
 5 - SHOW INFORMATIONS ABOUT GOALKEEPERS
 6 - QUADRANT WITH MORE BY GOALKEEPER ID
 7 - SHOW GOALS BECAUSE LACK OF STRENGTH
-8 - MAPING GOALS AND DEFENSES MORE BY GOALKEEPER ID
+8 - MAPING GOALS AND DEFENSES BY GOALKEEPER ID
+0 - PARA SAIR DO PROGRAMA
+ESCOLHA: PLEASE ENTER GOALKEEPER ID:         0     1     2     3     4     5     6     7     8     9     10    11    12    13    14    15    16    17  
+      ------------------------------------------------------------------------------------------------------------
+  0   | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  | OT  |
+      ------------------------------------------------------------------------------------------------------------
+  1   | OT  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | GP  | OT  |
+      ------------------------------------------------------------------------------------------------------------
+  2   | OT  | GP  |  *  |     |     |     |     |     |     |     |     |     |     |  X  |     |  *  | GP  | OT  |
+      ------------------------------------------------------------------------------------------------------------
+  3   | OT  | GP  |     |     |     |     |  *  |     |     |     |     |     |     |     |  X  |     | GP  | OT  |
+      ------------------------------------------------------------------------------------------------------------
+  4   | OT  | GP  |  *  |     |     |     |     |  *  |     |     |     |     |     |     |     |  *  | GP  | OT  |
+      ------------------------------------------------------------------------------------------------------------
+  5   | OT  | GP  |     |  *  |     |     |     |     |  *  |     |     |     |     |  X  |     |  X  | GP  | OT  |
+      ------------------------------------------------------------------------------------------------------------
+  6   | OT  | GP  |     |     | 2X  |     |     |  X  |     |     |     |  *  |  X  |     |  *  |     | GP  | OT  |
+      ------------------------------------------------------------------------------------------------------------
+  7   | OT  | GP  |     |     |     |     |     |     |     |     |  *  |  *  |  *  |     | 2*  |     | GP  | OT  |
+
+------------------------- CHOOSE A OPTION BELOW -------------------------
+1 - SHOW TEAMS AVERAGE DEFENSE PER GOALKEEPER
+2 - CLASSIFY SHOTS
+3 - SHOW GOALS INT THE CORNER OF THE CROSSBAR
+4 - RANKING THE BETTER GOALKEEPER PER TEAM
+5 - SHOW INFORMATIONS ABOUT GOALKEEPERS
+6 - QUADRANT WITH MORE BY GOALKEEPER ID
+7 - SHOW GOALS BECAUSE LACK OF STRENGTH
+8 - MAPING GOALS AND DEFENSES BY GOALKEEPER ID
 0 - PARA SAIR DO PROGRAMA
 ESCOLHA: 

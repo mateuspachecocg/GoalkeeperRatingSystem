@@ -105,16 +105,18 @@ public class Main {
 		if (goalkeeperDoNotExist) {
 			System.out.println("NOT FIND GOALKEEPER WITH ID " + idGpk);
 		} else {
-			int x, y;
-			boolean wasFound;
+
+			boolean notWasFound, firstCondition, secondCondition;
 			ArrayList<PixelSpecial> listPixel = new ArrayList<PixelSpecial>();
 			for (Outcome out : results) {
-				if ((out.wasDefense() || out.wasGoal()) && out.getGoalkeeper().getId() == gpk.getId()) {
+				firstCondition = out.wasDefense() || out.wasGoal();
+				secondCondition = out.getGoalkeeper().getId() == gpk.getId();
+				if (firstCondition && secondCondition) {
 					// Verify if the pixel already was created
-					wasFound = false;
+					notWasFound = true;
 					for (PixelSpecial pixel : listPixel) {
 						if (pixel.sameCoordinates(out.getShot().getPixel())) {
-							wasFound = true;
+							notWasFound = false;
 							if (out.wasGoal()) {
 								pixel.plusGoalHere();
 							} else {
@@ -123,7 +125,7 @@ public class Main {
 						}
 					}
 
-					if (!wasFound) {
+					if (notWasFound) {
 						PixelSpecial newPixel = new PixelSpecial(out.getShot().getPixel());
 						if (out.wasDefense()) {
 							newPixel.plusDefenseHere();
@@ -134,59 +136,64 @@ public class Main {
 					}
 				}
 			}
-			boolean isInPixelList;
-			System.out.print("      ");
-			for (y = 0; y <= forthQuadrant.getBottomRigthCorner().getPy(); y++) {
-				System.out.printf("  %-2d  ", y);
-			}
-			System.out.println();
-			for (x = 0; x <= forthQuadrant.getBottomRigthCorner().getPx(); x++) {
-				System.out.print("      ");
-				for (y = 0; y <= forthQuadrant.getBottomRigthCorner().getPy(); y++) {
-					System.out.print("------");
-				}
-				System.out.println();
-				System.out.printf("  %-2d  ", x);
-				for (y = 0; y <= forthQuadrant.getBottomRigthCorner().getPy(); y++) {
-					if ((y < goalpost.getTopLeftCorner().getPy() || y > goalpost.getTopRigthCorner().getPy()
-							|| x < goalpost.getTopLeftCorner().getPx())) {
-						System.out.print("| OT  ");
-					} else if (y == goalpost.getTopLeftCorner().getPy() || y == goalpost.getTopRigthCorner().getPy()
-							|| x == goalpost.getTopLeftCorner().getPx()) {
-						System.out.print("| GP  ");
-					} else {
-						isInPixelList = false;
-						for (PixelSpecial ps : listPixel) {
-							if (ps.sameCoordinates(new Pixel(x, y))) {
-								if (ps.getDefensesHere() > 0 || ps.getGoalsHere() > 0) {
-									if (ps.getDefensesHere() == 1) {
-										System.out.printf("|  X  ");
-									} else {
-										System.out.printf("| %dX  ", ps.getDefensesHere());
-									}
-								} else {
-									if (ps.getGoalsHere() == 1) {
-										System.out.printf("|  *  ");
-									} else {
-										System.out.printf("| %d*  ", ps.getGoalsHere());
-									}
-								}
-							}
-						}
-						if (!isInPixelList) {
-							System.out.print("|     ");
-						}
+			printInformationByPixels(listPixel, goalpost);
 
-					}
-				}
-				System.out.println("|");
-			}
-
-//			System.out.printf(
-//					"GOALS TAKEN PER QUADRANT\nTHE GOALKEEPER: %-16s\n\tFIRST : %-2d\n\tSECOND: %-2d\n\tTHIRD : %-2d\n\tFORTH : %-2d\n",
-//					gpk.getName(), firstQuadCount, secondQuadCount, thirdQuadCount, forthQuadCount);
 		}
 
+	}
+
+	public static void printInformationByPixels(ArrayList<PixelSpecial> listPixel, Goalpost goalpost) {
+		int x, y;
+		boolean isNotInPixelList;
+		System.out.print("      ");
+		for (y = 0; y <= forthQuadrant.getBottomRigthCorner().getPy(); y++) {
+			System.out.printf("  %-2d  ", y);
+		}
+		System.out.println();
+		for (x = 0; x <= forthQuadrant.getBottomRigthCorner().getPx(); x++) {
+			System.out.print("      ");
+			for (y = 0; y <= forthQuadrant.getBottomRigthCorner().getPy(); y++) {
+				System.out.print("------");
+			}
+			System.out.println();
+			System.out.printf("  %-2d  ", x);
+			for (y = 0; y <= forthQuadrant.getBottomRigthCorner().getPy(); y++) {
+				if ((y < goalpost.getTopLeftCorner().getPy() || y > goalpost.getTopRigthCorner().getPy()
+						|| x < goalpost.getTopLeftCorner().getPx())) {
+					System.out.print("| OT  ");
+				} else if (y == goalpost.getTopLeftCorner().getPy() || y == goalpost.getTopRigthCorner().getPy()
+						|| x == goalpost.getTopLeftCorner().getPx()) {
+					System.out.print("| GP  ");
+				} else {
+					
+					isNotInPixelList = true;
+					for (PixelSpecial ps : listPixel) {
+						if (ps.sameCoordinates(new Pixel(x, y))) {
+							if (ps.getDefensesHere() > 0) {
+								if (ps.getDefensesHere() == 1) {
+									System.out.printf("|  X  ");
+								} else {
+									System.out.printf("| %dX  ", ps.getDefensesHere());
+								}
+							} else if (ps.getGoalsHere() > 0){
+								if (ps.getGoalsHere() == 1) {
+									System.out.printf("|  *  ");
+								} else {
+									System.out.printf("| %d*  ", ps.getGoalsHere());
+								}
+							}
+							isNotInPixelList = false;
+							break;
+						}
+					}
+					if (isNotInPixelList) {
+						System.out.print("|     ");
+					}
+
+				}
+			}
+			System.out.println("|");
+		}
 	}
 
 	// Method for Question09
@@ -244,8 +251,8 @@ public class Main {
 
 				}
 			}
-			System.out.printf("NAME: %-18s\tTEAM: %-15s \tGOALS TAKEN: %-3d\tDEFENSES: %-3d\tAGG: %-3d\n",
-					goalkeeper.getName(), teamName, goalkeeper.getGoalsTaken(), goalkeeper.getNumberOfDefenses(),
+			System.out.printf("GPK ID: %-2d\tNAME: %-18s\tTEAM: %-15s \tGOALS TAKEN: %-3d\tDEFENSES: %-3d\tAGG: %-3d\n",
+					goalkeeper.getId(),goalkeeper.getName(), teamName, goalkeeper.getGoalsTaken(), goalkeeper.getNumberOfDefenses(),
 					goalkeeper.getGPA());
 		}
 	}
@@ -556,7 +563,7 @@ public class Main {
 		System.out.println("5 - SHOW INFORMATIONS ABOUT GOALKEEPERS");
 		System.out.println("6 - QUADRANT WITH MORE BY GOALKEEPER ID");
 		System.out.println("7 - SHOW GOALS BECAUSE LACK OF STRENGTH");
-		System.out.println("8 - MAPING GOALS AND DEFENSES MORE BY GOALKEEPER ID");
+		System.out.println("8 - MAPING GOALS AND DEFENSES BY GOALKEEPER ID");
 		System.out.println("0 - PARA SAIR DO PROGRAMA");
 		System.out.print("ESCOLHA: ");
 
