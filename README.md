@@ -32,7 +32,7 @@ The main challenges to develop this project were:
 - Design a mapping system for the possibilities of the goalkeeper's area of action as well as the shots that are defended or not by them.
 - Calculate the goalkeeper's areas of action without the use of matrices.
 - Check events like:
-  -There was a save by the goalkeeper
+  - There was a save by the goalkeeper
   - It was not a defense because the goalkeeper had no power greater than the kick.
   - There was a goal.
   
