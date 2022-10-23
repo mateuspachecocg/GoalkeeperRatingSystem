@@ -10,9 +10,9 @@
 
 System to analyze the performance of goalkeepers automatically
 
+![Screenshot](/src/grscord.png)
 </div>
 
-![Screenshot](/src/grscord.png)
 
 ## Basic Information
 
@@ -38,5 +38,6 @@ The main challenges to develop this project were:
   
   
 ## PRESENTATION VIDEO
-
+<div align="center">
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/ZiIitmrKbmU/0.jpg)](https://www.youtube.com/watch?v=ZiIitmrKbmU)
+</div>
