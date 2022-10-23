@@ -6,11 +6,13 @@ import model.*;
 import view.ConsolePrinter;
 
 public class Main {
-
+	// Enviroment Variables
 	public static Quadrant firstQuadrant = new Quadrant(1, new Pixel(0, 0), new Pixel(4, 8));
 	public static Quadrant secondQuadrant = new Quadrant(2, new Pixel(0, 9), new Pixel(4, 17));
 	public static Quadrant thirdQuadrant = new Quadrant(3, new Pixel(5, 0), new Pixel(7, 8));
 	public static Quadrant forthQuadrant = new Quadrant(4, new Pixel(5, 9), new Pixel(7, 17));
+	public static Goalpost goalpost = new Goalpost(new Pixel(7, 1), new Pixel(1, 1), new Pixel(1, 16),
+			new Pixel(7, 16));
 	public static ArrayList<Shot> bd_shots;
 	public static ArrayList<Goalkeeper> bd_goalkeepers;
 	public static ArrayList<Team> bd_teams;
@@ -23,27 +25,18 @@ public class Main {
 		bd_goalkeepers = dtl.loadGoalkeepers("bd_goalpeekers.txt");
 		bd_teams = dtl.loadTeams(bd_goalkeepers);
 
-		// Adding shots in the Corner of the Goalpost
-		bd_shots.add(new Shot(31, 8, firstQuadrant, new Pixel(2, 2)));
-		bd_shots.add(new Shot(32, 8, secondQuadrant, new Pixel(2, 15)));
-
-		// Instancing the Goalpost parameters.
-		Goalpost goalpost = new Goalpost(new Pixel(7, 1), new Pixel(1, 1), new Pixel(1, 16), new Pixel(7, 16));
-
-		System.out.println("WELCOME TO THE GOALKEEPERS RATING SYSTEM");
-		System.out.println("STARTING THE TRAINING SERSSION...");
+		ConsolePrinter csPrinter = new ConsolePrinter();
+		csPrinter.welcomeMessage();
 
 		// Training Session
+		csPrinter.startingTrainingMessage();
 		Coach coach = new Coach();
 		ArrayList<Outcome> trainingResults = coach.trainingGoalkeepers(bd_teams, bd_shots, goalpost);
-		// Counting the Defenses for Each Goalkeeper
 		coach.setGoalAndDefense(trainingResults, bd_goalkeepers);
-
-		System.out.println("FINISH THE TRAINING SERSSION...");
+		csPrinter.finishTrainingMessage();
 
 		// Creating Interation Interface
 		Scanner input = new Scanner(System.in);
-		ConsolePrinter csPrinter = new ConsolePrinter();
 
 		int control = 1;
 		while (control != 0) {
@@ -54,10 +47,10 @@ public class Main {
 				showTeamsAverageDefense(trainingResults);
 				break;
 			case 2:
-				classifyShots(goalpost);
+				classifyShots();
 				break;
 			case 3:
-				showGoalsInTheCornerOfCrossbar(trainingResults, goalpost);
+				showGoalsInTheCornerOfCrossbar(trainingResults);
 				break;
 			case 4:
 				teamsWithBetterGoalkeepers(trainingResults);
@@ -74,7 +67,7 @@ public class Main {
 				break;
 			case 8:
 				csPrinter.askForGoalkeeperID();
-				showEventsGoalkeeperByID(Integer.parseInt(input.nextLine()), trainingResults, goalpost);
+				showEventsGoalkeeperByID(Integer.parseInt(input.nextLine()), trainingResults, csPrinter);
 				break;
 			case 0:
 				control = 0;
@@ -91,7 +84,7 @@ public class Main {
 	}
 
 	// Method for Question10
-	public static void showEventsGoalkeeperByID(int idGpk, ArrayList<Outcome> results, Goalpost goalpost) {
+	public static void showEventsGoalkeeperByID(int idGpk, ArrayList<Outcome> results, ConsolePrinter csp) {
 		Goalkeeper gpk = null;
 
 		boolean goalkeeperDoNotExist = true;
@@ -137,64 +130,10 @@ public class Main {
 					}
 				}
 			}
-			printInformationByPixels(listPixel, goalpost);
+			csp.printInformationByPixels(listPixel, goalpost, forthQuadrant);
 
 		}
 
-	}
-
-	public static void printInformationByPixels(ArrayList<PixelSpecial> listPixel, Goalpost goalpost) {
-		int x, y;
-		boolean isNotInPixelList;
-		System.out.print("      ");
-		for (y = 0; y <= forthQuadrant.getBottomRigthCorner().getPy(); y++) {
-			System.out.printf("  %-2d  ", y);
-		}
-		System.out.println();
-		for (x = 0; x <= forthQuadrant.getBottomRigthCorner().getPx(); x++) {
-			System.out.print("      ");
-			for (y = 0; y <= forthQuadrant.getBottomRigthCorner().getPy(); y++) {
-				System.out.print("------");
-			}
-			System.out.println();
-			System.out.printf("  %-2d  ", x);
-			for (y = 0; y <= forthQuadrant.getBottomRigthCorner().getPy(); y++) {
-				if ((y < goalpost.getTopLeftCorner().getPy() || y > goalpost.getTopRigthCorner().getPy()
-						|| x < goalpost.getTopLeftCorner().getPx())) {
-					System.out.print("| OT  ");
-				} else if (y == goalpost.getTopLeftCorner().getPy() || y == goalpost.getTopRigthCorner().getPy()
-						|| x == goalpost.getTopLeftCorner().getPx()) {
-					System.out.print("| GP  ");
-				} else {
-
-					isNotInPixelList = true;
-					for (PixelSpecial ps : listPixel) {
-						if (ps.sameCoordinates(new Pixel(x, y))) {
-							if (ps.getDefensesHere() > 0) {
-								if (ps.getDefensesHere() == 1) {
-									System.out.printf("|  X  ");
-								} else {
-									System.out.printf("| %dX  ", ps.getDefensesHere());
-								}
-							} else if (ps.getGoalsHere() > 0) {
-								if (ps.getGoalsHere() == 1) {
-									System.out.printf("|  *  ");
-								} else {
-									System.out.printf("| %d*  ", ps.getGoalsHere());
-								}
-							}
-							isNotInPixelList = false;
-							break;
-						}
-					}
-					if (isNotInPixelList) {
-						System.out.print("|     ");
-					}
-
-				}
-			}
-			System.out.println("|");
-		}
 	}
 
 	// Method for Question09
@@ -295,7 +234,7 @@ public class Main {
 	}
 
 	// Method for Question 05
-	public static void showGoalsInTheCornerOfCrossbar(ArrayList<Outcome> results, Goalpost goalpost) {
+	public static void showGoalsInTheCornerOfCrossbar(ArrayList<Outcome> results) {
 		boolean testResult;
 		int shotPositionX, shotPositionY;
 		String side;
@@ -321,7 +260,7 @@ public class Main {
 	}
 
 	// Method for Question 04
-	public static void classifyShots(Goalpost goalpost) {
+	public static void classifyShots() {
 		int outCount = 0, leftGoalpostCount = 0, RigthGoalpostCount = 0, crossbarCount = 0, insideCount = 0;
 
 		for (Shot shot : bd_shots) {
@@ -402,29 +341,6 @@ public class Main {
 			}
 			System.out.println("\n    RECOMMEDATION FOR THE FIRST-STRING GOALKEEPER: "
 					+ Collections.min(team.getGoalkeepers()).getName());
-		}
-	}
-
-	public static void setGoalAndDefense(ArrayList<Outcome> results) {
-		int defenseCount = 0, goalTakenCount = 0;
-
-		for (Goalkeeper currentGoalkeeper : bd_goalkeepers) {
-
-			for (Outcome otc : results) {
-				if (otc.getGoalkeeper().getId() == currentGoalkeeper.getId()) {
-					if (otc.wasDefense()) {
-						defenseCount++;
-					} else {
-						if (otc.wasGoal()) {
-							goalTakenCount++;
-						}
-					}
-				}
-			}
-			currentGoalkeeper.setGoalsTaken(goalTakenCount);
-			currentGoalkeeper.setNumberOfDefenses(defenseCount);
-			goalTakenCount = 0;
-			defenseCount = 0;
 		}
 	}
 
