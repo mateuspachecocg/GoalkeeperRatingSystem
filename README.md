@@ -37,7 +37,7 @@ The main challenges to develop this project were:
   - There was a goal.
   
   
-## PRESENTATION VIDEO
+## YouTube Presentation Video
 <div align="center">
   
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/ZiIitmrKbmU/0.jpg)](https://www.youtube.com/watch?v=ZiIitmrKbmU)
