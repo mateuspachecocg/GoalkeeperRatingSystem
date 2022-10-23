@@ -39,5 +39,7 @@ The main challenges to develop this project were:
   
 ## PRESENTATION VIDEO
 <div align="center">
+  
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/ZiIitmrKbmU/0.jpg)](https://www.youtube.com/watch?v=ZiIitmrKbmU)
+
 </div>
