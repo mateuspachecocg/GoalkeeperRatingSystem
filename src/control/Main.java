@@ -1,12 +1,9 @@
-package Control;
+package control;
 
 import java.util.*;
-import Model.*;
 
-import java.io.Console;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import model.*;
+import view.ConsolePrinter;
 
 public class Main {
 
@@ -20,9 +17,11 @@ public class Main {
 
 	public static void main(String[] args) {
 		// Loading Data
-		loadShots();
-		loadGoalkeepers();
-		loadTeams();
+		DataLoader dtl = new DataLoader();
+
+		bd_shots = dtl.loadShots("bd_shots.txt");
+		bd_goalkeepers = dtl.loadGoalkeepers("bd_goalpeekers.txt");
+		bd_teams = dtl.loadTeams(bd_goalkeepers);
 
 		// Adding shots in the Corner of the Goalpost
 		bd_shots.add(new Shot(31, 8, firstQuadrant, new Pixel(2, 2)));
@@ -35,18 +34,20 @@ public class Main {
 		System.out.println("STARTING THE TRAINING SERSSION...");
 
 		// Training Session
-		ArrayList<Outcome> trainingResults = trainingGoalkeepers(goalpost);
+		Coach coach = new Coach();
+		ArrayList<Outcome> trainingResults = coach.trainingGoalkeepers(bd_teams, bd_shots, goalpost);
 		// Counting the Defenses for Each Goalkeeper
-		setGoalAndDefense(trainingResults);
+		coach.setGoalAndDefense(trainingResults, bd_goalkeepers);
 
 		System.out.println("FINISH THE TRAINING SERSSION...");
 
-		// Criando interface de cadastro
+		// Creating Interation Interface
 		Scanner input = new Scanner(System.in);
+		ConsolePrinter csPrinter = new ConsolePrinter();
 
 		int control = 1;
 		while (control != 0) {
-			mainMenu();
+			csPrinter.mainMenu();
 			control = Integer.parseInt(input.nextLine());
 			switch (control) {
 			case 1:
@@ -65,14 +66,14 @@ public class Main {
 				showInformationsAboutGoalkeepers();
 				break;
 			case 6:
-				System.out.print("PLEASE ENTER GOALKEEPER ID: ");
+				csPrinter.askForGoalkeeperID();
 				quadrantWithMoreGoals(Integer.parseInt(input.nextLine()), trainingResults);
 				break;
 			case 7:
 				showGoalBecauseLackOfStrength(trainingResults);
 				break;
 			case 8:
-				System.out.print("PLEASE ENTER GOALKEEPER ID: ");
+				csPrinter.askForGoalkeeperID();
 				showEventsGoalkeeperByID(Integer.parseInt(input.nextLine()), trainingResults, goalpost);
 				break;
 			case 0:
@@ -165,7 +166,7 @@ public class Main {
 						|| x == goalpost.getTopLeftCorner().getPx()) {
 					System.out.print("| GP  ");
 				} else {
-					
+
 					isNotInPixelList = true;
 					for (PixelSpecial ps : listPixel) {
 						if (ps.sameCoordinates(new Pixel(x, y))) {
@@ -175,7 +176,7 @@ public class Main {
 								} else {
 									System.out.printf("| %dX  ", ps.getDefensesHere());
 								}
-							} else if (ps.getGoalsHere() > 0){
+							} else if (ps.getGoalsHere() > 0) {
 								if (ps.getGoalsHere() == 1) {
 									System.out.printf("|  *  ");
 								} else {
@@ -252,8 +253,8 @@ public class Main {
 				}
 			}
 			System.out.printf("GPK ID: %-2d\tNAME: %-18s\tTEAM: %-15s \tGOALS TAKEN: %-3d\tDEFENSES: %-3d\tAGG: %-3d\n",
-					goalkeeper.getId(),goalkeeper.getName(), teamName, goalkeeper.getGoalsTaken(), goalkeeper.getNumberOfDefenses(),
-					goalkeeper.getGPA());
+					goalkeeper.getId(), goalkeeper.getName(), teamName, goalkeeper.getGoalsTaken(),
+					goalkeeper.getNumberOfDefenses(), goalkeeper.getGPA());
 		}
 	}
 
@@ -404,26 +405,6 @@ public class Main {
 		}
 	}
 
-	public static ArrayList<Outcome> trainingGoalkeepers(Goalpost goalpost) {
-		ArrayList<Outcome> outcomes = new ArrayList<Outcome>();
-		int idCount = 1;
-		PixelDefense pivotDefense;
-		for (Team team : bd_teams) {
-			for (Goalkeeper gpk : team.getGoalkeepers()) {
-				for (Shot shot : bd_shots) {
-					// Generating a PixelPivotDefenseArea
-					pivotDefense = gpk.getPivotDefenseArea(shot.getQuadrant(), goalpost);
-
-					outcomes.add(new Outcome(idCount, team, gpk, pivotDefense, shot, goalpost));
-
-					idCount++;
-				}
-			}
-		}
-
-		return outcomes;
-	}
-
 	public static void setGoalAndDefense(ArrayList<Outcome> results) {
 		int defenseCount = 0, goalTakenCount = 0;
 
@@ -447,125 +428,4 @@ public class Main {
 		}
 	}
 
-	public static void loadTeams() {
-
-		Team brazil = new Team(1, "Brazil");
-		Team belgium = new Team(2, "Belgium");
-		Team argentina = new Team(3, "Argentina");
-		Team france = new Team(4, "France");
-		Team italy = new Team(5, "Italy");
-
-		bd_teams = new ArrayList<Team>();
-		bd_teams.add(brazil);
-		bd_teams.add(belgium);
-		bd_teams.add(argentina);
-		bd_teams.add(france);
-		bd_teams.add(italy);
-
-		int k = 0;
-
-		for (Team team : bd_teams) {
-			for (int i = 0; i < 5; i++) {
-				team.addGoalkeeper(bd_goalkeepers.get(k));
-				k++;
-			}
-		}
-
-		// bd_teams.add(spain);
-		// bd_teams.get(5).addGoalkeeper(bd_goalkeepers.get(k));
-	}
-
-	public static void loadShots() {
-		int amountShot, shotId, shotStrength, numberOfQuadrant, shotPx, shotPy;
-		File fileObject;
-		Scanner fileReader;
-		Quadrant shotQuadrant;
-		bd_shots = new ArrayList<Shot>();
-
-		try {
-			fileObject = new File("bd_shots.txt");
-			fileReader = new Scanner(fileObject);
-			amountShot = fileReader.nextInt();
-
-			for (int i = 0; i < amountShot; i++) {
-				shotId = fileReader.nextInt();
-				shotStrength = fileReader.nextInt();
-				numberOfQuadrant = fileReader.nextInt();
-				shotPx = fileReader.nextInt();
-				shotPy = fileReader.nextInt();
-				switch (numberOfQuadrant) {
-				case 1:
-					shotQuadrant = firstQuadrant;
-					break;
-				case 2:
-					shotQuadrant = secondQuadrant;
-					break;
-				case 3:
-					shotQuadrant = thirdQuadrant;
-					break;
-				case 4:
-					shotQuadrant = forthQuadrant;
-					break;
-				default:
-					shotQuadrant = null;
-				}
-
-				bd_shots.add(new Shot(shotId, shotStrength, shotQuadrant, new Pixel(shotPx, shotPy)));
-			}
-
-			fileReader.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("An error occurred.");
-			e.printStackTrace();
-		}
-
-	}
-
-	public static void loadGoalkeepers() {
-		int amountGoalpeekers, goalpeekerId, goalkeeperSpeed, goalkeeperFlexibility, goalkeeperAgility,
-				goalkeeperCoordination, goalkeeperStrength, goalkeeperBalance;
-		String goalkeeperName;
-		File fileObject;
-		Scanner fileReader;
-		bd_goalkeepers = new ArrayList<Goalkeeper>();
-		try {
-			fileObject = new File("bd_goalpeekers.txt");
-			fileReader = new Scanner(fileObject);
-			amountGoalpeekers = fileReader.nextInt();
-
-			for (int i = 0; i < amountGoalpeekers; i++) {
-				goalpeekerId = fileReader.nextInt();
-				goalkeeperName = fileReader.nextLine();
-				goalkeeperSpeed = fileReader.nextInt();
-				goalkeeperFlexibility = fileReader.nextInt();
-				goalkeeperAgility = fileReader.nextInt();
-				goalkeeperCoordination = fileReader.nextInt();
-				goalkeeperStrength = fileReader.nextInt();
-				goalkeeperBalance = fileReader.nextInt();
-				bd_goalkeepers.add(new Goalkeeper(goalpeekerId, goalkeeperName, goalkeeperSpeed, goalkeeperFlexibility,
-						goalkeeperAgility, goalkeeperCoordination, goalkeeperStrength, goalkeeperBalance));
-			}
-
-			fileReader.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("An error occurred.");
-			e.printStackTrace();
-		}
-
-	}
-
-	public static void mainMenu() {
-		System.out.println("------------------------- CHOOSE A OPTION BELOW -------------------------");
-		System.out.println("1 - SHOW TEAMS AVERAGE DEFENSE PER GOALKEEPER");
-		System.out.println("2 - CLASSIFY SHOTS");
-		System.out.println("3 - SHOW GOALS INT THE CORNER OF THE CROSSBAR");
-		System.out.println("4 - RANKING THE BETTER GOALKEEPER PER TEAM");
-		System.out.println("5 - SHOW INFORMATIONS ABOUT GOALKEEPERS");
-		System.out.println("6 - QUADRANT WITH MORE BY GOALKEEPER ID");
-		System.out.println("7 - SHOW GOALS BECAUSE LACK OF STRENGTH");
-		System.out.println("8 - MAPING GOALS AND DEFENSES BY GOALKEEPER ID");
-		System.out.println("0 - PARA SAIR DO PROGRAMA");
-		System.out.print("ESCOLHA: ");
-
-	}
 }
