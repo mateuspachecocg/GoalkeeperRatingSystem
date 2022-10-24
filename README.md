@@ -41,5 +41,5 @@ The main challenges to develop this project were:
 <div align="center">
   
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/ZiIitmrKbmU/0.jpg)](https://www.youtube.com/watch?v=ZiIitmrKbmU "Project Presenetation Video")
-[SCRIPT OF THE VIDEO](https://github.com/mateuspachecocg/GoalkeeperRatingSystem/blob/main/SCRIPT%20GRS%20PRESENTATION.pdf)
+- [SCRIPT OF THE VIDEO](https://github.com/mateuspachecocg/GoalkeeperRatingSystem/blob/main/SCRIPT%20GRS%20PRESENTATION.pdf)
 </div>
